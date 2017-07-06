@@ -22,7 +22,7 @@ mongoose.connect(dbUrl, {useMongoClient: true}, function(err){
 
 //Bring routes in
 var index = require('./routes/index');
-var polls = require('./routes/polls');
+var api = require('./routes/api');
 
 var app = express();
 
@@ -60,7 +60,7 @@ app.use((req,res,next)=>{
 
 //Call routes
 app.use('/', index);
-app.use('/polls', polls);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

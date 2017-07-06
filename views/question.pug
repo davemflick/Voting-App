@@ -7,9 +7,9 @@ block content
 		p= option
 
 	button
-		a(href="/polls/" + poll._id + "/editpoll") Edit Poll
-	form(action="/polls/" + poll._id +"?_method=delete", method='post')
+		a(href="/api/polls/" + poll._id + "/editpoll") Edit Poll
+	form(action="/api/polls/" + poll._id +"?_method=delete", method='post')
 		input(type='submit' value='Delete Poll') 
 
 	button
-		a(href="/polls") Go Back to All Polls
+		a(href="/api/polls") Go Back to All Polls

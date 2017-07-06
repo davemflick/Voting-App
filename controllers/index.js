@@ -2,6 +2,6 @@ var PollController = require('./PollController');
 var UserController = require('./UserController');
 
 module.exports = {
-	poll: PollController,
+	polls: PollController,
 	user: UserController
 }

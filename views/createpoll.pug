@@ -3,7 +3,7 @@ extends layout
 block content
 	h1 Create Poll
 	.form
-		form(action='/polls', method='post')
+		form(action='/api/polls', method='post')
 			.item
 				input(type="text", name='question', placeholder='Question')
 			.item
