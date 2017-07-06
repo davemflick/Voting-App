@@ -9,9 +9,13 @@ var passport = require("passport");
 var LocalStrategy = require("passport-local");
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var polls = require('./routes/polls');
 
 var app = express();
+
+//Models
+var Poll = require('./models/poll');
+var User = require('./models/user');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,8 +29,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Set up passport
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//middleware to determine if user is logged in or not, pass to every template
+app.use((req,res,next)=>{
+	res.locals.currentUser = req.user;
+	next();
+});
+
+//Call routes
 app.use('/', index);
-app.use('/users', users);
+app.use('/polls', polls);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

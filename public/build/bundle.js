@@ -9789,7 +9789,7 @@ var App = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				null,
-				' Hello from react '
+				' Hello from React '
 			);
 		}
 	}]);

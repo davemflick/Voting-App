@@ -1,0 +1,17 @@
+extends layout
+
+block content
+	h1 Create Poll
+	.form
+		form(action='/polls/createpoll', method='post')
+			.item
+				input(type="text", name='question', placeholder='Question')
+			.item
+				.option
+					input(type='text', name='option', placeholder='Option')
+			.addOption
+				button(type='button').addOpBtn +
+			.item
+				input(type='submit')
+
+	script(src='/javascripts/main.js')
