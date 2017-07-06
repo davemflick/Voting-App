@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var PollController = require('../controllers/PollController.js')
+var controllers = require('../controllers');
+var PollController = controllers.poll;
+
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
