@@ -7,7 +7,20 @@ var bodyParser = require('body-parser');
 var methodOverride = require("method-override");
 var passport = require("passport");
 var LocalStrategy = require("passport-local");
+var mongoose = require('mongoose');
 
+
+//CONNECT MONGOOSE TO DB
+var dbUrl = 'mongodb://localhost/voting-app';
+mongoose.connect(dbUrl, {useMongoClient: true}, function(err){
+	if(err){
+		console.log(err);
+	} else {
+		console.log("Mongoose Connected to Data Base");
+	}
+});
+
+//Bring routes in
 var index = require('./routes/index');
 var polls = require('./routes/polls');
 
