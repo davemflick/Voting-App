@@ -1,0 +1,16 @@
+extends layout
+
+block content
+	h1 Polls page
+	if polls
+		for poll in polls
+			h3= poll.question + "  ->"
+				span
+					a(href="/polls/" + poll._id) View Poll
+			for choice in poll.choices
+				p= choice
+		else
+			p no polls
+
+	button
+		a(href="/polls/createpoll") Create Poll

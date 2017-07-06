@@ -1,4 +1,4 @@
-var Poll = require('./models/poll');
+var Poll = require('../models/poll');
 
 module.exports = {
 	find: function(params, callback){
@@ -11,19 +11,46 @@ module.exports = {
 		});
 	},
 
-	findById: function(){
-
+	findById: function(id, callback){
+		Poll.findById(id, function(err, poll){
+			if(err){
+				callback(err, null)
+				return
+			}
+			callback(null, poll)
+		});
 	},
 
-	create: function(){
+	create: function(params, callback){
+		params.choices = params.option
 
-	}
-
-	update: function(){
-
+		Poll.create(params, function(err, poll){
+			if(err){
+				callback(err, null)
+				return
+			}
+			callback(null, poll)
+		});
 	},
 
-	destroy: function(){
+	update: function(id, params, callback){
+		params.choices = params.option
+		Poll.findByIdAndUpdate(id, params, {new: true},  function(err, poll){
+			if(err){
+				callback(err, null);
+				return 
+			}
+			callback(null, poll)
+		})
+	},
 
-	}
+	destroy: function(id, callback){
+		Poll.findByIdAndRemove(id, function(err){
+			if(err){
+				callback(err, null)
+				return
+			}
+			callback(null, null)
+		})
+	},
 }

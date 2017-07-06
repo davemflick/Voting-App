@@ -42,6 +42,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Set up Method-Override
+app.use(methodOverride("_method"));
+
 //Set up passport
 app.use(passport.initialize());
 app.use(passport.session());

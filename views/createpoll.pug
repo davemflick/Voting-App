@@ -3,9 +3,12 @@ extends layout
 block content
 	h1 Create Poll
 	.form
-		form(action='/polls/createpoll', method='post')
+		form(action='/polls', method='post')
 			.item
 				input(type="text", name='question', placeholder='Question')
+			.item
+				.option
+					input(type='text', name='option', placeholder='Option')
 			.item
 				.option
 					input(type='text', name='option', placeholder='Option')
