@@ -9,4 +9,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Voting App', reactVar: "MONKEY MAN" });
 });
 
+router.get('/polls', function(req, res, next) {
+  res.render('index', { title: 'Voting App', reactVar: "MONKEY MAN" });
+});
+
 module.exports = router;

@@ -1,12 +1,33 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class Polls extends Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			polls: [],
+		}
+	}
+
+	componentDidMount(){
+		axios.get('/api/polls')
+			.then((res)=>{
+				let polls = res.data.polls
+				this.setState({
+					polls: polls
+				})
+			})
+			.catch((err)=>{
+				console.log(error)
+			})
+	}
 	
 
 	render(){
 		return(
 			<div>
-				{this.props.polls.map((poll, i)=>
+				<ul>
+				{this.state.polls.map((poll, i)=>
 					<li key={i} className="ui container segment">
 						<h3>{poll.question}</h3>
 						<ul>
@@ -16,6 +37,7 @@ export default class Polls extends Component {
 						</ul>
 					</li>
 				)}
+				</ul>
 			</div>
 		)
 	}

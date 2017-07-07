@@ -3,15 +3,18 @@ import ReactDOM from 'react-dom';
 import Home from './components/Home';
 
 
+
+
+
 class App extends Component{
 	
 
 	render(){
 		return (
-			<div> 
+			<div>
+				<p> Hi </p>
 				<Home />
 			</div>
-
 		)
 	}	
 }

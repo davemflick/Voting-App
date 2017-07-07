@@ -1,36 +1,22 @@
 import React, { Component } from 'react';
 import Polls from './Polls';
-import axios from 'axios';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
-export default class Home extends Component {
-	constructor(props){
-		super(props);
-		this.state = {
-			polls: [],
-		}
-	}
+const HomePage = () => <h1><Link to="/polls">Click Me</Link></h1>
+const About = () => <h1>About Us</h1>
 
-	componentDidMount(){
-		axios.get('/api/polls')
-			.then((res)=>{
-				let polls = res.data.polls
-				this.setState({
-					polls: polls
-				})
-			})
-			.catch((err)=>{
-				console.log(error)
-			})
-	}
+class Home extends Component {
 
 	render(){
 		return(
-			<div>
-				<h1>Voting App</h1>
-				<ul>
-					<Polls polls={this.state.polls} />
-				</ul>
-			</div>
+			<Router>
+				<Switch>
+					<Route path='/' exact component={HomePage} />
+					<Route path='/polls' component={Polls} />
+				</Switch>
+			</Router>
 		)
 	}
 }
+
+module.exports = Home
