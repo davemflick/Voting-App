@@ -7,7 +7,7 @@ export default class Polls extends Component {
 		return(
 			<div>
 				{this.props.polls.map((poll, i)=>
-					<li key={i}>
+					<li key={i} className="ui container segment">
 						<h3>{poll.question}</h3>
 						<ul>
 						{poll.choices.map((choice, ind)=>

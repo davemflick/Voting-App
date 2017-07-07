@@ -21,7 +21,7 @@ router.get("/:resource", function(req, res, next){
 			return
 		} else {
 			if(resource === 'polls'){
-				res.render(resource, {polls: results})
+				res.json({polls: results})
 			} else {
 				res.render(resource, {results: results})
 			}

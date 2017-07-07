@@ -1,22 +1,32 @@
 import React, { Component } from 'react';
 import Polls from './Polls';
+import axios from 'axios';
 
 export default class Home extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			polls: [
-				{question: "Cars", choices: ['Toyota', 'Ford', 'Chevy']},
-				{question: "Food", choices: ['Cereal', 'Pizza', 'Candy']},
-				{question: "Animals", choices: ['Dogs', 'Cats', 'Frogs']},
-				]
+			polls: [],
 		}
+	}
+
+	componentDidMount(){
+		axios.get('/api/polls')
+			.then((res)=>{
+				let polls = res.data.polls
+				this.setState({
+					polls: polls
+				})
+			})
+			.catch((err)=>{
+				console.log(error)
+			})
 	}
 
 	render(){
 		return(
 			<div>
-				<p>Hello from Home Component </p>
+				<h1>Voting App</h1>
 				<ul>
 					<Polls polls={this.state.polls} />
 				</ul>
