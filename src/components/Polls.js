@@ -26,6 +26,7 @@ export default class Polls extends Component {
 	render(){
 		return(
 			<div>
+				<a href="/newpoll"><button className="ui button orange">Create New Poll</button></a>
 				<ul>
 				{this.state.polls.map((poll, i)=>
 					<li key={i} className="ui container segment">

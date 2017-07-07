@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import Polls from './Polls';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import HomePage from './HomePage';
+import Polls from './Polls';
+import CreatePoll from './CreatePoll';
+import NotFound from './NotFound';
 
-const HomePage = () => <h1><Link to="/polls">Click Me</Link></h1>
-const About = () => <h1>About Us</h1>
 
 class Home extends Component {
 
@@ -13,6 +14,8 @@ class Home extends Component {
 				<Switch>
 					<Route path='/' exact component={HomePage} />
 					<Route path='/polls' component={Polls} />
+					<Route path='/newpoll' component={CreatePoll} />
+					<Route component={NotFound} />
 				</Switch>
 			</Router>
 		)

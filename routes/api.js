@@ -56,7 +56,7 @@ router.post('/:resource', function(req, res, next){
 			});
 			return
 		} else {
-			res.redirect('/api/'+ resource)
+			res.redirect('/'+ resource)
 		}
 	})
 })

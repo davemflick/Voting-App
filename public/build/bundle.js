@@ -11952,11 +11952,6 @@ var App = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				null,
-				_react2.default.createElement(
-					'p',
-					null,
-					' Hi '
-				),
 				_react2.default.createElement(_Home2.default, null)
 			);
 		}
@@ -24086,11 +24081,23 @@ var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(225);
+
+var _HomePage = __webpack_require__(253);
+
+var _HomePage2 = _interopRequireDefault(_HomePage);
+
 var _Polls = __webpack_require__(205);
 
 var _Polls2 = _interopRequireDefault(_Polls);
 
-var _reactRouterDom = __webpack_require__(225);
+var _CreatePoll = __webpack_require__(255);
+
+var _CreatePoll2 = _interopRequireDefault(_CreatePoll);
+
+var _NotFound = __webpack_require__(254);
+
+var _NotFound2 = _interopRequireDefault(_NotFound);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24099,25 +24106,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var HomePage = function HomePage() {
-	return _react2.default.createElement(
-		'h1',
-		null,
-		_react2.default.createElement(
-			_reactRouterDom.Link,
-			{ to: '/polls' },
-			'Click Me'
-		)
-	);
-};
-var About = function About() {
-	return _react2.default.createElement(
-		'h1',
-		null,
-		'About Us'
-	);
-};
 
 var Home = function (_Component) {
 	_inherits(Home, _Component);
@@ -24137,8 +24125,10 @@ var Home = function (_Component) {
 				_react2.default.createElement(
 					_reactRouterDom.Switch,
 					null,
-					_react2.default.createElement(_reactRouterDom.Route, { path: '/', exact: true, component: HomePage }),
-					_react2.default.createElement(_reactRouterDom.Route, { path: '/polls', component: _Polls2.default })
+					_react2.default.createElement(_reactRouterDom.Route, { path: '/', exact: true, component: _HomePage2.default }),
+					_react2.default.createElement(_reactRouterDom.Route, { path: '/polls', component: _Polls2.default }),
+					_react2.default.createElement(_reactRouterDom.Route, { path: '/newpoll', component: _CreatePoll2.default }),
+					_react2.default.createElement(_reactRouterDom.Route, { component: _NotFound2.default })
 				)
 			);
 		}
@@ -24212,6 +24202,15 @@ var Polls = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				null,
+				_react2.default.createElement(
+					'a',
+					{ href: '/newpoll' },
+					_react2.default.createElement(
+						'button',
+						{ className: 'ui button orange' },
+						'Create New Poll'
+					)
+				),
 				_react2.default.createElement(
 					'ul',
 					null,
@@ -27502,6 +27501,249 @@ NavLink.defaultProps = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(13);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0_react_router__["i"]; });
 
+
+/***/ }),
+/* 253 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Home = function (_Component) {
+	_inherits(Home, _Component);
+
+	function Home() {
+		_classCallCheck(this, Home);
+
+		return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
+	}
+
+	_createClass(Home, [{
+		key: "render",
+		value: function render() {
+			return _react2.default.createElement(
+				"div",
+				null,
+				_react2.default.createElement(
+					"h1",
+					null,
+					" Voting App "
+				),
+				_react2.default.createElement(
+					"div",
+					{ className: "ui container segment" },
+					_react2.default.createElement(
+						"p",
+						null,
+						"Register a Username "
+					),
+					_react2.default.createElement(
+						"p",
+						null,
+						"Create Custom Polls "
+					),
+					_react2.default.createElement(
+						"p",
+						null,
+						"Vote on public polls made by others "
+					),
+					_react2.default.createElement(
+						"p",
+						null,
+						"View results of all polls"
+					),
+					_react2.default.createElement(
+						"button",
+						{ className: "ui button green" },
+						_react2.default.createElement(
+							"a",
+							{ href: "/polls" },
+							"Go To Polls"
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return Home;
+}(_react.Component);
+
+module.exports = Home;
+
+/***/ }),
+/* 254 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NotFound = function (_Component) {
+	_inherits(NotFound, _Component);
+
+	function NotFound() {
+		_classCallCheck(this, NotFound);
+
+		return _possibleConstructorReturn(this, (NotFound.__proto__ || Object.getPrototypeOf(NotFound)).apply(this, arguments));
+	}
+
+	_createClass(NotFound, [{
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'h1',
+					null,
+					' The page you\'re looking for was Not Found '
+				)
+			);
+		}
+	}]);
+
+	return NotFound;
+}(_react.Component);
+
+module.exports = NotFound;
+
+/***/ }),
+/* 255 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(206);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CreatePoll = function (_Component) {
+	_inherits(CreatePoll, _Component);
+
+	function CreatePoll(props) {
+		_classCallCheck(this, CreatePoll);
+
+		var _this = _possibleConstructorReturn(this, (CreatePoll.__proto__ || Object.getPrototypeOf(CreatePoll)).call(this, props));
+
+		_this.state = {
+			numOptions: 2
+		};
+		_this.increaseOpts = _this.increaseOpts.bind(_this);
+		return _this;
+	}
+
+	_createClass(CreatePoll, [{
+		key: 'createOptions',
+		value: function createOptions() {
+			var opts = [];
+			for (var i = 0; i < this.state.numOptions; i++) {
+				opts.push(_react2.default.createElement(
+					'div',
+					{ key: 'opt' + i, className: 'item' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'option' },
+						_react2.default.createElement('input', { type: 'text', name: 'option', placeholder: 'Option' })
+					)
+				));
+			}
+			return opts;
+		}
+	}, {
+		key: 'increaseOpts',
+		value: function increaseOpts() {
+			var numOpts = this.state.numOptions;
+			numOpts++;
+			this.setState({
+				numOptions: numOpts
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'h1',
+					null,
+					' Create New Poll '
+				),
+				_react2.default.createElement(
+					'form',
+					{ action: '/api/polls', method: 'post' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'item' },
+						_react2.default.createElement('input', { type: 'text', name: 'question', placeholder: 'Question' })
+					),
+					this.createOptions(),
+					_react2.default.createElement(
+						'div',
+						{ className: 'addOption' },
+						_react2.default.createElement(
+							'button',
+							{ className: 'addOpBtn', type: 'button', onClick: this.increaseOpts },
+							' + '
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'item' },
+						_react2.default.createElement('input', { type: 'submit' })
+					)
+				)
+			);
+		}
+	}]);
+
+	return CreatePoll;
+}(_react.Component);
+
+module.exports = CreatePoll;
 
 /***/ })
 /******/ ]);
