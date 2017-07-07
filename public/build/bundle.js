@@ -9776,9 +9776,9 @@ var _reactDom = __webpack_require__(99);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Polls = __webpack_require__(185);
+var _Home = __webpack_require__(186);
 
-var _Polls2 = _interopRequireDefault(_Polls);
+var _Home2 = _interopRequireDefault(_Home);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9803,16 +9803,7 @@ var App = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				null,
-				_react2.default.createElement(
-					'p',
-					null,
-					'Hello from React '
-				),
-				_react2.default.createElement(
-					'ul',
-					null,
-					_react2.default.createElement(_Polls2.default, null)
-				)
+				_react2.default.createElement(_Home2.default, null)
 			);
 		}
 	}]);
@@ -22476,33 +22467,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Polls = function (_Component) {
 	_inherits(Polls, _Component);
 
-	function Polls(props) {
+	function Polls() {
 		_classCallCheck(this, Polls);
 
-		var _this = _possibleConstructorReturn(this, (Polls.__proto__ || Object.getPrototypeOf(Polls)).call(this, props));
-
-		_this.state = {
-			polls: [{ question: "Cars", choices: ['Toyota', 'Ford', 'Chevy'] }, { question: "Food", choices: ['Cereal', 'Pizza', 'Candy'] }, { question: "Animals", choices: ['Dogs', 'Cats', 'Frogs'] }]
-		};
-		return _this;
+		return _possibleConstructorReturn(this, (Polls.__proto__ || Object.getPrototypeOf(Polls)).apply(this, arguments));
 	}
-
-	// createPollList(){
-	// 	let polls = this.state.polls;
-	// 	let pollMap = [];
-	// 	polls.forEach((poll, i)=>{
-	// 		pollMap.push(<li key={i}>
-	// 			<h3>{poll.question}</h3>
-	// 				<ul>
-	// 				{poll.choices.map((choice, ind)=>
-	// 					<li key={ind}> {choice} </li>
-	// 				)}
-	// 				</ul>
-	// 			</li>)
-	// 	})
-
-	// 	return pollMap
-	// }
 
 	_createClass(Polls, [{
 		key: 'render',
@@ -22510,7 +22479,7 @@ var Polls = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				null,
-				this.state.polls.map(function (poll, i) {
+				this.props.polls.map(function (poll, i) {
 					return _react2.default.createElement(
 						'li',
 						{ key: i },
@@ -22542,6 +22511,74 @@ var Polls = function (_Component) {
 }(_react.Component);
 
 exports.default = Polls;
+
+/***/ }),
+/* 186 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(49);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Polls = __webpack_require__(185);
+
+var _Polls2 = _interopRequireDefault(_Polls);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Home = function (_Component) {
+	_inherits(Home, _Component);
+
+	function Home(props) {
+		_classCallCheck(this, Home);
+
+		var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
+
+		_this.state = {
+			polls: [{ question: "Cars", choices: ['Toyota', 'Ford', 'Chevy'] }, { question: "Food", choices: ['Cereal', 'Pizza', 'Candy'] }, { question: "Animals", choices: ['Dogs', 'Cats', 'Frogs'] }]
+		};
+		return _this;
+	}
+
+	_createClass(Home, [{
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'p',
+					null,
+					'Hello from Home Component '
+				),
+				_react2.default.createElement(
+					'ul',
+					null,
+					_react2.default.createElement(_Polls2.default, { polls: this.state.polls })
+				)
+			);
+		}
+	}]);
+
+	return Home;
+}(_react.Component);
+
+exports.default = Home;
 
 /***/ })
 /******/ ]);
