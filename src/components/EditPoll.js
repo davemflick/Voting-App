@@ -2,53 +2,68 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 
+
 class EditPoll extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			numOptions: 2,
-			thispoll: {}
+			numOptions: 0,
+			currentPoll: {}
 		}
 		this.increaseOpts = this.increaseOpts.bind(this);
 	}
 
-	componentDidMount(){
-			axios.get('/api/polls/')
-			.then((res)=>{
-				let polls = res.data.polls
-				let id = this.props.location.pathname.substring(10);
-				let thisPoll;
-				polls.forEach(poll=>{
-					if(poll._id === id){
-						thisPoll = poll;
-					}
-				});
-				this.setState({
-					numOptions: thisPoll.choices.length,
-					thispoll: thisPoll,
-					stateUpdate: true
-				});
-			})
-			.catch((err)=>{
-				console.log(error)
-			})
+	componentWillReceiveProps(nextprops){
+			if(this.props.polls !== nextprops.polls){
+				this.setState(this.updateState(nextprops))
+			}
 	}
 
-
-
+	updateState(nextprops){
+		let polls = nextprops.polls;
+		let currPoll = {};
+		polls.forEach(poll=>{
+			if(window.location.href.indexOf(poll._id) > -1){
+				currPoll = poll;
+			}
+		});
+		
+		let nextState = {
+			numOptions: currPoll.choices.length,
+			currentPoll: currPoll
+		}
+		return nextState
+	}
 
 	createOptions(){
-		let opts = [];
-		for(let i=0; i<this.state.numOptions; i++){
-			opts.push(
-			<div key={'opt' + i} className='item'>
-				<div className='option'>
-					<input type='text' name='option' defaultValue={'Option'} />
+		if(this.state.numOptions < 1){
+			console.log('initial createOptions')
+			return (<div>LOADING...</div>)
+		} else {
+			console.log('final createOptions')
+			let opts = [];
+			for(let i=0; i<this.state.numOptions; i++){
+				opts.push(
+				<div key={'opt' + i} className='item'>
+					<div className='option'>
+						<input type='text' name='option' defaultValue={this.state.currentPoll.choices[i]} />
+					</div>
 				</div>
-			</div>
-			);
+				);
+			}
+			return opts
 		}
-		return opts
+	}
+
+	createQuestion(){
+		if(this.state.numOptions < 1){
+			return (<div></div>)
+		} else {
+			return(<div className='item'>
+						<input type='text' name='question' defaultValue={this.state.currentPoll.question} />
+					</div>
+				)
+		}
 	}
 
 	increaseOpts(){
@@ -64,9 +79,7 @@ class EditPoll extends Component {
 			<div>
 				<h1> Edit Poll </h1>
 				<form action='/api/polls' method='post'>
-					<div className='item'>
-						<input type='text' name='question' defaultValue={'Question'} />
-					</div>
+					{this.createQuestion()}
 					{this.createOptions()}
 					<div className='addOption'>
 						<button className='addOpBtn' type='button' onClick={this.increaseOpts}> + </button>

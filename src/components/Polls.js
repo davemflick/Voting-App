@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 export default class Polls extends Component {
 	constructor(props){
@@ -9,25 +8,19 @@ export default class Polls extends Component {
 		}
 	}
 
-	componentDidMount(){
-		axios.get('/api/polls')
-			.then((res)=>{
-				let polls = res.data.polls
-				this.setState({
-					polls: polls
-				})
+	componentWillReceiveProps(nextprops){
+		if(this.props.polls !== nextprops.polls){
+			this.setState({
+			polls: nextprops.polls
 			})
-			.catch((err)=>{
-				console.log(error)
-			})
+		}
 	}
 
-	render(){
-		return(
-			<div className='ui container segment pollsContainer'>
-				<h1 className='pollsHeader'> Posted Polls </h1>
-				<ul className='ui container segment'>
-				{this.state.polls.map((poll, i)=>
+	renderPolls(){
+		if(this.state.polls.length < 1){
+			return ( <div> LOADING... </div>)
+		} else {
+			return this.state.polls.map((poll, i)=>
 					<li key={i} className="ui container segment">
 						<h3>{poll.question}</h3>
 						<ul>
@@ -39,7 +32,16 @@ export default class Polls extends Component {
 							<button className='ui button red tiny'> Edit Poll </button>
 						</a>
 					</li>
-				)}
+				)
+		}
+	}
+
+	render(){
+		return(
+			<div className='ui container segment pollsContainer'>
+				<h1 className='pollsHeader'> Posted Polls </h1>
+				<ul className='ui container segment'>
+					{this.renderPolls()}
 				</ul>
 			</div>
 		)
