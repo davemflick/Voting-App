@@ -47,7 +47,6 @@ class Home extends Component {
 	loadPaths(){
 		if(this.state.polls.length > 0){
 			let paths = this.createPathsForAllPolls()
-			console.log(paths)
 			return paths
 		}
 	}

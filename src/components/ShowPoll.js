@@ -9,6 +9,10 @@ export default class ShowPoll extends Component {
 		};
 	}
 
+	showAnswers(){
+		console.log(this.state.poll.answers)
+	}
+
 	render(){
 		return(
 			<div>
@@ -16,6 +20,7 @@ export default class ShowPoll extends Component {
 				<form action={"/api/polls/" + this.props.poll._id + '?_method=DELETE'} method='post'>
 					<input type='submit' value='Delete This Poll' />
 				</form>
+				<button type='button' onClick={this.showAnswers.bind(this)}> Console </button>
 			</div>
 		)
 	}

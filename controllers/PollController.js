@@ -23,7 +23,10 @@ module.exports = {
 
 	create: function(params, callback){
 		params.choices = params.option
-
+		params.answers = params.option
+		answers = [];
+		params.answers.forEach(a=>answers.push([a, 0]));
+		params.answers = answers
 		Poll.create(params, function(err, poll){
 			if(err){
 				callback(err, null)
