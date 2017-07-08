@@ -27717,27 +27717,72 @@ var ShowPoll = function (_Component) {
 			console.log(this.state.poll.answers);
 		}
 	}, {
+		key: 'createPoll',
+		value: function createPoll() {
+			var poll = this.state.poll;
+			console.log(poll);
+			if (Array.isArray(poll.choices)) {
+				return poll.choices.map(function (opts, i) {
+					return _react2.default.createElement(
+						'div',
+						{ key: opts + '-' + i, className: 'field' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'radio checkbox' },
+							_react2.default.createElement('input', { type: 'radio', name: 'pick' }),
+							_react2.default.createElement(
+								'lable',
+								{ className: 'choiceOpt' },
+								opts
+							)
+						)
+					);
+				});
+			}
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				null,
+				{ className: 'ui container segment showPage' },
 				_react2.default.createElement(
-					'h1',
-					null,
-					' ',
-					this.props.poll.question,
-					' '
+					'div',
+					{ className: 'ui container segment showQuestion' },
+					_react2.default.createElement(
+						'h1',
+						null,
+						' ',
+						this.state.poll.question,
+						' '
+					),
+					_react2.default.createElement(
+						'form',
+						{ action: '/api/polls/' + this.state.poll._id + '?_method=PUT', method: 'post', className: 'ui form' },
+						this.createPoll(),
+						_react2.default.createElement('input', { type: 'submit', className: 'ui button blue mini' })
+					),
+					_react2.default.createElement(
+						'form',
+						{ action: "/api/polls/" + this.state.poll._id + '?_method=DELETE', method: 'post' },
+						_react2.default.createElement('input', { type: 'submit', value: 'Delete This Poll', className: 'ui button red invert deletePoll' })
+					),
+					_react2.default.createElement(
+						'button',
+						{ type: 'button',
+							className: 'ui button red invert',
+							onClick: this.showAnswers.bind(this) },
+						' Console '
+					)
 				),
 				_react2.default.createElement(
-					'form',
-					{ action: "/api/polls/" + this.props.poll._id + '?_method=DELETE', method: 'post' },
-					_react2.default.createElement('input', { type: 'submit', value: 'Delete This Poll' })
-				),
-				_react2.default.createElement(
-					'button',
-					{ type: 'button', onClick: this.showAnswers.bind(this) },
-					' Console '
+					'div',
+					{ className: 'ui container segment showResults' },
+					_react2.default.createElement(
+						'div',
+						null,
+						' Results '
+					)
 				)
 			);
 		}
@@ -27792,13 +27837,22 @@ var CreatePoll = function (_Component) {
 		key: 'createOptions',
 		value: function createOptions() {
 			var opts = [];
+
 			for (var i = 0; i < this.state.numOptions; i++) {
+				var count = i + 1;
 				opts.push(_react2.default.createElement(
 					'div',
-					{ key: 'opt' + i, className: 'item' },
+					{ key: 'opt' + i, className: 'field' },
 					_react2.default.createElement(
 						'div',
 						{ className: 'option' },
+						_react2.default.createElement(
+							'label',
+							null,
+							' ',
+							'Choice ' + count + ': ',
+							' '
+						),
 						_react2.default.createElement('input', { type: 'text', name: 'option', placeholder: 'Option' })
 					)
 				));
@@ -27819,7 +27873,7 @@ var CreatePoll = function (_Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				null,
+				{ className: 'ui container segment' },
 				_react2.default.createElement(
 					'h1',
 					null,
@@ -27827,26 +27881,31 @@ var CreatePoll = function (_Component) {
 				),
 				_react2.default.createElement(
 					'form',
-					{ action: '/api/polls', method: 'post' },
+					{ action: '/api/polls', method: 'post', className: 'ui form' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'item' },
+						{ className: 'field' },
+						_react2.default.createElement(
+							'label',
+							null,
+							' Question '
+						),
 						_react2.default.createElement('input', { type: 'text', name: 'question', placeholder: 'Question' })
 					),
 					this.createOptions(),
 					_react2.default.createElement(
 						'div',
-						{ className: 'addOption' },
-						_react2.default.createElement(
-							'button',
-							{ className: 'addOpBtn', type: 'button', onClick: this.increaseOpts },
-							' + '
-						)
+						{ className: 'item submitBtn' },
+						_react2.default.createElement('input', { type: 'submit', className: 'ui button green' })
 					),
 					_react2.default.createElement(
 						'div',
-						{ className: 'item' },
-						_react2.default.createElement('input', { type: 'submit' })
+						{ className: 'addOption' },
+						_react2.default.createElement(
+							'button',
+							{ className: 'addOpBtn ui button teal', type: 'button', onClick: this.increaseOpts },
+							' Add Option '
+						)
 					)
 				)
 			);
@@ -27893,7 +27952,8 @@ var EditPoll = function (_Component) {
 
 		_this.state = {
 			numOptions: 0,
-			currentPoll: {}
+			currentPoll: {},
+			initialState: true
 		};
 		_this.increaseOpts = _this.increaseOpts.bind(_this);
 		_this.removeOption = _this.removeOption.bind(_this);
@@ -27922,10 +27982,17 @@ var EditPoll = function (_Component) {
 					currPoll = poll;
 				}
 			});
-
+			var numOpts = void 0;
+			if (Array.isArray(currPoll.choices)) {
+				numOpts = currPoll.choices.length;
+			} else {
+				numOpts = 0;
+				currPoll.choices = [];
+			}
 			var nextState = {
-				numOptions: currPoll.choices.length,
-				currentPoll: currPoll
+				numOptions: numOpts,
+				currentPoll: currPoll,
+				initialState: false
 			};
 			return nextState;
 		}
@@ -27935,11 +28002,17 @@ var EditPoll = function (_Component) {
 	}, {
 		key: 'createOptions',
 		value: function createOptions() {
-			if (this.state.numOptions < 1) {
+			if (this.state.initialState) {
 				return _react2.default.createElement(
 					'div',
 					null,
 					'LOADING...'
+				);
+			} else if (!this.state.initialState && this.state.numOptions === 0) {
+				return _react2.default.createElement(
+					'div',
+					null,
+					' Currently No Options '
 				);
 			} else {
 				var opts = [];
@@ -27976,7 +28049,7 @@ var EditPoll = function (_Component) {
 	}, {
 		key: 'createQuestion',
 		value: function createQuestion() {
-			if (this.state.numOptions < 1) {
+			if (this.state.initialState) {
 				return _react2.default.createElement('div', null);
 			} else {
 				return _react2.default.createElement(

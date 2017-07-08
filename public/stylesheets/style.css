@@ -38,3 +38,33 @@ label {
 	display: block;
 }
 /* END OF EDIT AND CREATE POLL PAGES */
+
+
+/*SHOW SINGLE POLL PAGE */
+.ui.segment.container.showPage {
+	display: flex;
+	justify-content: space-between;
+}
+.showChoices {
+	display: inline-block;
+}
+
+.ui.segment.container.showQuestion {
+	width: 45%;
+	margin-bottom: 0
+}
+
+.ui.segment.container.showResults {
+	width: 45%;
+	margin-top: 0;
+}
+
+.choiceOpt {
+	margin-left: 10px;
+}
+
+.deletePoll.ui.button.red {
+	margin: 30px 0;
+}
+
+/* END OF SHOW SINGLE POLL PAGE */

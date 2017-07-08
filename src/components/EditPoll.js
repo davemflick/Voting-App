@@ -9,6 +9,7 @@ class EditPoll extends Component {
 		this.state = {
 			numOptions: 0,
 			currentPoll: {},
+			initialState: true,
 		}
 		this.increaseOpts = this.increaseOpts.bind(this);
 		this.removeOption = this.removeOption.bind(this);
@@ -29,18 +30,29 @@ class EditPoll extends Component {
 				currPoll = poll;
 			}
 		});
-		
+		let numOpts;
+		if(Array.isArray(currPoll.choices)){
+			numOpts = currPoll.choices.length
+		} else {
+			numOpts = 0;
+			currPoll.choices = [];
+		}
 		let nextState = {
-			numOptions: currPoll.choices.length,
-			currentPoll: currPoll
+			numOptions: numOpts,
+			currentPoll: currPoll,
+			initialState: false,
 		}
 		return nextState
 	}
 
 	//Created Choices for form based on number of current options.
 	createOptions(){
-		if(this.state.numOptions < 1){
+		if(this.state.initialState){
 			return (<div>LOADING...</div>)
+		} else if(!this.state.initialState && this.state.numOptions === 0){
+			return (
+				<div> Currently No Options </div>
+			)
 		} else {
 			let opts = [];
 			for(let i=0; i<this.state.numOptions; i++){
@@ -62,7 +74,7 @@ class EditPoll extends Component {
 	}
 
 	createQuestion(){
-		if(this.state.numOptions < 1){
+		if(this.state.initialState){
 			return (<div></div>)
 		} else {
 			return(<div className='item field'>

@@ -13,10 +13,13 @@ class CreatePoll extends Component {
 
 	createOptions(){
 		let opts = [];
+
 		for(let i=0; i<this.state.numOptions; i++){
+			let count = i+1
 			opts.push(
-			<div key={'opt' + i} className='item'>
+			<div key={'opt' + i} className='field'>
 				<div className='option'>
+					<label> {'Choice '+ count + ': '} </label>
 					<input type='text' name='option' placeholder='Option' />
 				</div>
 			</div>
@@ -35,18 +38,19 @@ class CreatePoll extends Component {
 
 	render(){
 		return(
-			<div>
+			<div className='ui container segment'>
 				<h1> Create New Poll </h1>
-				<form action='/api/polls' method='post'>
-					<div className='item'>
+				<form action='/api/polls' method='post' className='ui form'>
+					<div className='field'>
+						<label> Question </label>
 						<input type='text' name='question' placeholder='Question' />
 					</div>
 					{this.createOptions()}
-					<div className='addOption'>
-						<button className='addOpBtn' type='button' onClick={this.increaseOpts}> + </button>
+					<div className='item submitBtn'>
+						<input type='submit' className='ui button green' />
 					</div>
-					<div className='item'>
-						<input type='submit' />
+					<div className='addOption'>
+						<button className='addOpBtn ui button teal' type='button' onClick={this.increaseOpts}> Add Option </button>
 					</div>
 				</form>
 			</div>

@@ -38,6 +38,10 @@ module.exports = {
 
 	update: function(id, params, callback){
 		params.choices = params.option
+		params.answers = params.option
+		answers = [];
+		params.answers.forEach(a=>answers.push([a, 0]));
+		params.answers = answers
 		Poll.findByIdAndUpdate(id, params, {new: true},  function(err, poll){
 			if(err){
 				callback(err, null);
