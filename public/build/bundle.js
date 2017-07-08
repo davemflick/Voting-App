@@ -27601,7 +27601,7 @@ var Polls = function (_Component) {
 						'li',
 						{ key: i, className: 'ui container segment' },
 						_react2.default.createElement(
-							'h3',
+							'h2',
 							null,
 							poll.question
 						),
@@ -27720,16 +27720,17 @@ var ShowPoll = function (_Component) {
 		key: 'createPoll',
 		value: function createPoll() {
 			var poll = this.state.poll;
-			console.log(poll);
 			if (Array.isArray(poll.choices)) {
+				console.log(poll.answers);
 				return poll.choices.map(function (opts, i) {
+					poll.pickIndex = i;
 					return _react2.default.createElement(
 						'div',
 						{ key: opts + '-' + i, className: 'field' },
 						_react2.default.createElement(
 							'div',
 							{ className: 'radio checkbox' },
-							_react2.default.createElement('input', { type: 'radio', name: 'pick' }),
+							_react2.default.createElement('input', { type: 'radio', name: 'pick', value: JSON.stringify(poll) }),
 							_react2.default.createElement(
 								'lable',
 								{ className: 'choiceOpt' },
@@ -27758,7 +27759,7 @@ var ShowPoll = function (_Component) {
 					),
 					_react2.default.createElement(
 						'form',
-						{ action: '/api/polls/' + this.state.poll._id + '?_method=PUT', method: 'post', className: 'ui form' },
+						{ action: '/api/polls/' + this.state.poll._id + '/answer?_method=PUT', method: 'post', className: 'ui form' },
 						this.createPoll(),
 						_react2.default.createElement('input', { type: 'submit', className: 'ui button blue mini' })
 					),

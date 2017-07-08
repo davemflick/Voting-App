@@ -51,6 +51,19 @@ module.exports = {
 		})
 	},
 
+	updatePollAnswers: function(id, params, callback){
+		params = params.pick
+		params = JSON.parse(params)
+		params.answers[params.pickIndex][1] +=1
+		Poll.findByIdAndUpdate(id, params,  function(err, poll){
+			if(err){
+				callback(err, null);
+				return 
+			}
+			callback(null, poll)
+		})
+	},
+
 	destroy: function(id, callback){
 		Poll.findByIdAndRemove(id, function(err){
 			if(err){

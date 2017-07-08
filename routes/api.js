@@ -107,7 +107,7 @@ router.get('/:resource/:id/editpoll', function(req, res, next){
 		}
 	})
 });
-
+//UPDATE EDITED POLL QUESTION
 router.put("/:resource/:id", function(req, res, next){
 	var id = req.params.id;
 	var resource = req.params.resource;
@@ -122,6 +122,24 @@ router.put("/:resource/:id", function(req, res, next){
 			return
 		} else {
 			res.redirect('/' + resource)
+		}
+	});
+});
+//UPDATE to add answer to poll
+router.put("/:resource/:id/answer", function(req, res, next){
+	var id = req.params.id;
+	var resource = req.params.resource;
+	var controller = controllers[resource];
+	controller.updatePollAnswers(id, req.body, function(err, result){
+		if(err){
+			res.json({
+				confirmation: "Failed",
+				message: "Failed to update",
+				error: err
+			});
+			return
+		} else {
+			res.redirect('back')
 		}
 	});
 });

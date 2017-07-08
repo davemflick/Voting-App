@@ -24,7 +24,7 @@ export default class Polls extends Component {
 			let polls = [];
 			return this.state.polls.map((poll, i)=>
 					<li key={i} className="ui container segment">
-						<h3>{poll.question}</h3>
+						<h2>{poll.question}</h2>
 						<ul>
 						{ this.renderChoices(poll)}
 						</ul>
