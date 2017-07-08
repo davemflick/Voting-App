@@ -10,8 +10,9 @@ export default class Polls extends Component {
 
 	componentWillReceiveProps(nextprops){
 		if(this.props.polls !== nextprops.polls){
+			let polls = nextprops.polls;
 			this.setState({
-			polls: nextprops.polls
+			polls: polls
 			})
 		}
 	}
@@ -20,13 +21,12 @@ export default class Polls extends Component {
 		if(this.state.polls.length < 1){
 			return ( <div> LOADING... </div>)
 		} else {
+			let polls = [];
 			return this.state.polls.map((poll, i)=>
 					<li key={i} className="ui container segment">
 						<h3>{poll.question}</h3>
 						<ul>
-						{poll.choices.map((choice, ind)=>
-							<li key={ind}> {choice} </li>
-						)}
+						{ this.renderChoices(poll)}
 						</ul>
 						<a href={'/poll/' + poll._id}>
 							<button className='ui button teal tiny'> View Poll </button>
@@ -36,6 +36,12 @@ export default class Polls extends Component {
 						</a>
 					</li>
 				)
+		}
+	}
+
+	renderChoices(poll){
+		if(poll.choices){
+			return poll.choices.map((choice, ind)=> <li key={ind}> {choice} </li>)
 		}
 	}
 

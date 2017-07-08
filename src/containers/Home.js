@@ -17,7 +17,7 @@ class Home extends Component {
 		}
 	}
 
-	componentWillMount(){
+	componentDidMount(){
 		axios.get('/api/polls')
 			.then((res)=>{
 				let polls = res.data.polls
@@ -26,7 +26,7 @@ class Home extends Component {
 				})
 			})
 			.catch((err)=>{
-				console.log(error)
+				console.log(err)
 			})
 	}
 

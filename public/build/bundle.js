@@ -24145,8 +24145,8 @@ var Home = function (_Component) {
 	}
 
 	_createClass(Home, [{
-		key: 'componentWillMount',
-		value: function componentWillMount() {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
 			var _this2 = this;
 
 			_axios2.default.get('/api/polls').then(function (res) {
@@ -24155,7 +24155,7 @@ var Home = function (_Component) {
 					polls: polls
 				});
 			}).catch(function (err) {
-				console.log(error);
+				console.log(err);
 			});
 		}
 	}, {
@@ -27577,14 +27577,17 @@ var Polls = function (_Component) {
 		key: 'componentWillReceiveProps',
 		value: function componentWillReceiveProps(nextprops) {
 			if (this.props.polls !== nextprops.polls) {
+				var polls = nextprops.polls;
 				this.setState({
-					polls: nextprops.polls
+					polls: polls
 				});
 			}
 		}
 	}, {
 		key: 'renderPolls',
 		value: function renderPolls() {
+			var _this2 = this;
+
 			if (this.state.polls.length < 1) {
 				return _react2.default.createElement(
 					'div',
@@ -27592,6 +27595,7 @@ var Polls = function (_Component) {
 					' LOADING... '
 				);
 			} else {
+				var polls = [];
 				return this.state.polls.map(function (poll, i) {
 					return _react2.default.createElement(
 						'li',
@@ -27604,15 +27608,7 @@ var Polls = function (_Component) {
 						_react2.default.createElement(
 							'ul',
 							null,
-							poll.choices.map(function (choice, ind) {
-								return _react2.default.createElement(
-									'li',
-									{ key: ind },
-									' ',
-									choice,
-									' '
-								);
-							})
+							_this2.renderChoices(poll)
 						),
 						_react2.default.createElement(
 							'a',
@@ -27632,6 +27628,21 @@ var Polls = function (_Component) {
 								' Edit Poll '
 							)
 						)
+					);
+				});
+			}
+		}
+	}, {
+		key: 'renderChoices',
+		value: function renderChoices(poll) {
+			if (poll.choices) {
+				return poll.choices.map(function (choice, ind) {
+					return _react2.default.createElement(
+						'li',
+						{ key: ind },
+						' ',
+						choice,
+						' '
 					);
 				});
 			}
@@ -27885,8 +27896,12 @@ var EditPoll = function (_Component) {
 			currentPoll: {}
 		};
 		_this.increaseOpts = _this.increaseOpts.bind(_this);
+		_this.removeOption = _this.removeOption.bind(_this);
 		return _this;
 	}
+
+	//Take in props, after initial render, then re-render with poll property
+
 
 	_createClass(EditPoll, [{
 		key: 'componentWillReceiveProps',
@@ -27895,6 +27910,8 @@ var EditPoll = function (_Component) {
 				this.setState(this.updateState(nextprops));
 			}
 		}
+		//This searches through all polls to match currently selected poll.
+
 	}, {
 		key: 'updateState',
 		value: function updateState(nextprops) {
@@ -27912,6 +27929,9 @@ var EditPoll = function (_Component) {
 			};
 			return nextState;
 		}
+
+		//Created Choices for form based on number of current options.
+
 	}, {
 		key: 'createOptions',
 		value: function createOptions() {
@@ -27924,13 +27944,29 @@ var EditPoll = function (_Component) {
 			} else {
 				var opts = [];
 				for (var i = 0; i < this.state.numOptions; i++) {
+					var choiceCount = i + 1;
 					opts.push(_react2.default.createElement(
 						'div',
-						{ key: 'opt' + i, className: 'item' },
+						{ key: 'opt' + i, className: 'field' },
 						_react2.default.createElement(
 							'div',
 							{ className: 'option' },
-							_react2.default.createElement('input', { type: 'text', name: 'option', defaultValue: this.state.currentPoll.choices[i] })
+							_react2.default.createElement(
+								'label',
+								null,
+								'Choice ' + choiceCount + ':',
+								' '
+							),
+							_react2.default.createElement('input', { type: 'text', name: 'option', defaultValue: this.state.currentPoll.choices[i] }),
+							_react2.default.createElement(
+								'div',
+								{ className: 'removeBtnDiv' },
+								_react2.default.createElement(
+									'button',
+									{ type: 'button', className: i + ' ui button red mini', onClick: this.removeOption },
+									' Remove '
+								)
+							)
 						)
 					));
 				}
@@ -27945,11 +27981,19 @@ var EditPoll = function (_Component) {
 			} else {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'item' },
+					{ className: 'item field' },
+					_react2.default.createElement(
+						'label',
+						null,
+						'Question'
+					),
 					_react2.default.createElement('input', { type: 'text', name: 'question', defaultValue: this.state.currentPoll.question })
 				);
 			}
 		}
+
+		//Add an option input
+
 	}, {
 		key: 'increaseOpts',
 		value: function increaseOpts() {
@@ -27959,12 +28003,27 @@ var EditPoll = function (_Component) {
 				numOptions: numOpts
 			});
 		}
+
+		//Remove option input
+
+	}, {
+		key: 'removeOption',
+		value: function removeOption(e) {
+			var ind = e.target.className;
+			var poll = this.state.currentPoll;
+			poll.choices.splice(ind, 1);
+			poll.answers.splice(ind, 1);
+			this.setState({
+				numOptions: poll.choices.length,
+				currentPoll: poll
+			});
+		}
 	}, {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				null,
+				{ className: 'ui segment container' },
 				_react2.default.createElement(
 					'h1',
 					null,
@@ -27972,22 +28031,24 @@ var EditPoll = function (_Component) {
 				),
 				_react2.default.createElement(
 					'form',
-					{ action: '/api/polls/' + this.state.currentPoll._id + '?_method=PUT', method: 'post' },
+					{ action: '/api/polls/' + this.state.currentPoll._id + '?_method=PUT',
+						method: 'post',
+						className: 'ui form' },
 					this.createQuestion(),
 					this.createOptions(),
+					_react2.default.createElement(
+						'div',
+						{ className: 'item submitBtn' },
+						_react2.default.createElement('input', { type: 'submit', className: 'ui button green' })
+					),
 					_react2.default.createElement(
 						'div',
 						{ className: 'addOption' },
 						_react2.default.createElement(
 							'button',
-							{ className: 'addOpBtn', type: 'button', onClick: this.increaseOpts },
-							' + '
+							{ className: 'addOpBtn ui button teal', type: 'button', onClick: this.increaseOpts },
+							' Add Option '
 						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'item' },
-						_react2.default.createElement('input', { type: 'submit' })
 					)
 				)
 			);
