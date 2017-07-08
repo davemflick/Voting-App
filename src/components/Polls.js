@@ -28,6 +28,9 @@ export default class Polls extends Component {
 							<li key={ind}> {choice} </li>
 						)}
 						</ul>
+						<a href={'/poll/' + poll._id}>
+							<button className='ui button teal tiny'> View Poll </button>
+						</a>
 						<a href={'/editpoll/' + poll._id}>
 							<button className='ui button red tiny'> Edit Poll </button>
 						</a>

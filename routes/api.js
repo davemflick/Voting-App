@@ -121,7 +121,7 @@ router.put("/:resource/:id", function(req, res, next){
 			});
 			return
 		} else {
-			res.redirect('/')
+			res.redirect('/polls')
 		}
 	});
 });
@@ -139,7 +139,7 @@ router.delete('/:resource/:id', function(req, res, next){
 			});
 			return
 		} else {
-			res.redirect('/api/'+resource)
+			res.redirect('/polls')
 		}
 	})
 });

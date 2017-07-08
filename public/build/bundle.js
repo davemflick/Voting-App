@@ -24106,6 +24106,10 @@ var _Polls = __webpack_require__(253);
 
 var _Polls2 = _interopRequireDefault(_Polls);
 
+var _ShowPoll = __webpack_require__(258);
+
+var _ShowPoll2 = _interopRequireDefault(_ShowPoll);
+
 var _CreatePoll = __webpack_require__(254);
 
 var _CreatePoll2 = _interopRequireDefault(_CreatePoll);
@@ -24155,6 +24159,30 @@ var Home = function (_Component) {
 			});
 		}
 	}, {
+		key: 'createPathsForAllPolls',
+		value: function createPathsForAllPolls() {
+			var polls = this.state.polls;
+			var paths = [];
+			polls.forEach(function (poll) {
+				paths.push(_react2.default.createElement(_reactRouterDom.Route, {
+					key: poll._id,
+					path: '/poll/' + poll._id,
+					render: function render(props) {
+						return _react2.default.createElement(_ShowPoll2.default, { poll: poll });
+					} }));
+			});
+			return paths;
+		}
+	}, {
+		key: 'loadPaths',
+		value: function loadPaths() {
+			if (this.state.polls.length > 0) {
+				var paths = this.createPathsForAllPolls();
+				console.log(paths);
+				return paths;
+			}
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var _this3 = this;
@@ -24169,6 +24197,7 @@ var Home = function (_Component) {
 					_react2.default.createElement(_reactRouterDom.Route, { path: '/polls', render: function render(props) {
 							return _react2.default.createElement(_Polls2.default, { polls: _this3.state.polls });
 						} }),
+					this.loadPaths(),
 					_react2.default.createElement(_reactRouterDom.Route, { path: '/newpoll', component: _CreatePoll2.default }),
 					_react2.default.createElement(_reactRouterDom.Route, { path: '/editpoll', render: function render(props) {
 							return _react2.default.createElement(_EditPoll2.default, { polls: _this3.state.polls });
@@ -27588,6 +27617,15 @@ var Polls = function (_Component) {
 						),
 						_react2.default.createElement(
 							'a',
+							{ href: '/poll/' + poll._id },
+							_react2.default.createElement(
+								'button',
+								{ className: 'ui button teal tiny' },
+								' View Poll '
+							)
+						),
+						_react2.default.createElement(
+							'a',
 							{ href: '/editpoll/' + poll._id },
 							_react2.default.createElement(
 								'button',
@@ -28014,6 +28052,72 @@ var NavBar = function (_Component) {
 }(_react.Component);
 
 module.exports = NavBar;
+
+/***/ }),
+/* 258 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ShowPoll = function (_Component) {
+	_inherits(ShowPoll, _Component);
+
+	function ShowPoll(props) {
+		_classCallCheck(this, ShowPoll);
+
+		var _this = _possibleConstructorReturn(this, (ShowPoll.__proto__ || Object.getPrototypeOf(ShowPoll)).call(this, props));
+
+		_this.state = {
+			poll: _this.props.poll
+		};
+		return _this;
+	}
+
+	_createClass(ShowPoll, [{
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'h1',
+					null,
+					' ',
+					this.props.poll.question,
+					' '
+				),
+				_react2.default.createElement(
+					'form',
+					{ action: "/api/polls/" + this.props.poll._id + '?_method=DELETE', method: 'post' },
+					_react2.default.createElement('input', { type: 'submit', value: 'Delete This Poll' })
+				)
+			);
+		}
+	}]);
+
+	return ShowPoll;
+}(_react.Component);
+
+exports.default = ShowPoll;
 
 /***/ })
 /******/ ]);

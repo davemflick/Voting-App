@@ -7,17 +7,24 @@ var controllers = require('../controllers');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Voting App', reactVar: "MONKEY MAN" });
+  res.render('index', { title: 'Voting App'});
 });
 
 // GET for polls page
 router.get('/polls', function(req, res, next) {
-  res.render('index', { title: 'Voting App', reactVar: "MONKEY MAN" });
+  res.render('index', { title: 'Voting App'});
+});
+
+// GET for single poll
+router.get('/poll/:id', function(req, res, next) {
+	if(req.params.id.length > 1){
+		res.render('index', { title: 'Voting App'});
+	}
 });
 
 // GET for newpoll page
 router.get('/newpoll', function(req, res, next) {
-  res.render('index', { title: 'Voting App', reactVar: "MONKEY MAN" });
+  res.render('index', { title: 'Voting App'});
 });
 
 //GET EditPoll
