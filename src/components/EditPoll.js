@@ -37,10 +37,8 @@ class EditPoll extends Component {
 
 	createOptions(){
 		if(this.state.numOptions < 1){
-			console.log('initial createOptions')
 			return (<div>LOADING...</div>)
 		} else {
-			console.log('final createOptions')
 			let opts = [];
 			for(let i=0; i<this.state.numOptions; i++){
 				opts.push(
@@ -78,7 +76,7 @@ class EditPoll extends Component {
 		return(
 			<div>
 				<h1> Edit Poll </h1>
-				<form action='/api/polls' method='post'>
+				<form action={'/api/polls/' + this.state.currentPoll._id + '?_method=PUT'} method='post'>
 					{this.createQuestion()}
 					{this.createOptions()}
 					<div className='addOption'>

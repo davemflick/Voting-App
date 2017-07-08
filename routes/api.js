@@ -121,7 +121,7 @@ router.put("/:resource/:id", function(req, res, next){
 			});
 			return
 		} else {
-			res.redirect('/api/'+resource+'/' + id)
+			res.redirect('/')
 		}
 	});
 });
