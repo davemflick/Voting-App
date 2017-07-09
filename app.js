@@ -20,9 +20,13 @@ mongoose.connect(dbUrl, {useMongoClient: true}, function(err){
 	}
 });
 
+//To get rid of mongoose promise warning
+mongoose.Promise = global.Promise;
+
 //Bring routes in
 var index = require('./routes/index');
 var api = require('./routes/api');
+var user = require('./routes/user');
 
 var app = express();
 
@@ -68,6 +72,7 @@ app.use((req,res,next)=>{
 //Call routes
 app.use('/', index);
 app.use('/api', api);
+app.use('/user', user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

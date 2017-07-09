@@ -12,10 +12,6 @@ export default class Login extends Component{
 						<input type='text' name='username' placeholder='Choose Username' />
 					</div>
 					<div className='field inline'>
-						<label> Email </label>
-						<input type='email' name='email' placeholder='Your email' />
-					</div>
-					<div className='field inline'>
 						<label> Password </label>
 						<input type='password' name='password' placeholder='Password' />
 					</div>

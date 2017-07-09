@@ -5,6 +5,11 @@ var bodyParser = require('body-parser');
 var controllers = require('../controllers');
 
 
+//middleware
+var middleware = require('../middleware/middleware');
+var isLoggedIn = middleware.isLoggedIn;
+var checkPollCreator = middleware.checkPollCreator;
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Voting App'});
@@ -23,12 +28,12 @@ router.get('/poll/:id', function(req, res, next) {
 });
 
 // GET for newpoll page
-router.get('/newpoll', function(req, res, next) {
+router.get('/newpoll', isLoggedIn, function(req, res, next) {
   res.render('index', { title: 'Voting App'});
 });
 
 //GET EditPoll
-router.get('/editpoll/*', function(req, res, next){
+router.get('/editpoll/:id', checkPollCreator, function(req, res, next){
 	res.render('index')
 });
 

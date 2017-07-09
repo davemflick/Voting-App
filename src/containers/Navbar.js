@@ -12,7 +12,7 @@ class NavBar extends Component {
 				<div className='right menu'>
 					<a className='item' href='/login'> Login </a>
 					<a className='item' href='/register'> Register </a>
-					<a className='item' href='/'> Logout </a>
+					<a className='item' href='/user/logout'> Logout </a>
 				</div>
 			</div>
 		)

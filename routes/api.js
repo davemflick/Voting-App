@@ -4,6 +4,11 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var controllers = require('../controllers');
 
+//middleware
+var middleware = require('../middleware/middleware');
+var isLoggedIn = middleware.isLoggedIn;
+var checkPollCreator = middleware.checkPollCreator;
+
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -45,9 +50,14 @@ router.get('/:resource/createpoll', function(req, res, next){
 })
 
 //Create Poll Route
-router.post('/:resource', function(req, res, next){
+router.post('/:resource', isLoggedIn, function(req, res, next){
 	var resource = req.params.resource;
 	var controller = controllers[resource];
+	let author = {
+		id:  req.user._id,
+		username: req.user.username
+	}
+	req.body.author = author;
 	controller.create(req.body, function(err, poll){
 		if(err){
 			res.json({
