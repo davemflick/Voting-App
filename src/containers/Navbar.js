@@ -10,8 +10,8 @@ class NavBar extends Component {
 				<a className='item' href='/polls'> Polls </a>
 				<a className='item' href='/newpoll'> Create Poll </a>
 				<div className='right menu'>
-					<a className='item' href='/'> Login </a>
-					<a className='item' href='/'> Register </a>
+					<a className='item' href='/login'> Login </a>
+					<a className='item' href='/register'> Register </a>
 					<a className='item' href='/'> Logout </a>
 				</div>
 			</div>

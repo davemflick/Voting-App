@@ -34,6 +34,13 @@ var User = require('./models/user');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+//Express-session set up
+app.use(require("express-session")({
+  secret: "My secret message",
+  resave: false,
+  saveUninitialized: false
+}));
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));

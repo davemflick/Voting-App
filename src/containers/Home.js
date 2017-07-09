@@ -6,6 +6,8 @@ import Polls from '../components/Polls';
 import ShowPoll from '../components/ShowPoll';
 import CreatePoll from '../components/CreatePoll';
 import EditPoll from '../components/EditPoll';
+import Register from '../components/Register';
+import Login from '../components/Login';
 import NotFound from './NotFound';
 
 
@@ -60,6 +62,8 @@ class Home extends Component {
 					{this.loadPaths()}
 					<Route path='/newpoll' component={CreatePoll} />
 					<Route path='/editpoll' render={(props)=><EditPoll polls={this.state.polls} />} />
+					<Route path='/register' component={Register} />
+					<Route path='/login' component={Login} />
 					<Route component={NotFound} />
 				</Switch>
 			</Router>

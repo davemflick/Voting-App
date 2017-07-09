@@ -32,6 +32,14 @@ router.get('/editpoll/*', function(req, res, next){
 	res.render('index')
 });
 
+//Get Register
+router.get('/register', function(req, res, next){
+	res.render('index')
+});
+//Get Login
+router.get('/login', function(req, res, next){
+	res.render('index')
+});
 
 
 
