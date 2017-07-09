@@ -5,7 +5,7 @@ class NavBar extends Component {
 
 	render(){
 		return(
-			<div className='ui stackable menu'>
+			<div className='ui menu'>
 				<a className='active item' href='/'> Home </a>
 				<a className='item' href='/polls'> Polls </a>
 				<a className='item' href='/newpoll'> Create Poll </a>

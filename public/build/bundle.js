@@ -27618,15 +27618,6 @@ var Polls = function (_Component) {
 								{ className: 'ui button teal tiny' },
 								' View Poll '
 							)
-						),
-						_react2.default.createElement(
-							'a',
-							{ href: '/editpoll/' + poll._id },
-							_react2.default.createElement(
-								'button',
-								{ className: 'ui button red tiny' },
-								' Edit Poll '
-							)
 						)
 					);
 				});
@@ -27712,16 +27703,10 @@ var ShowPoll = function (_Component) {
 	}
 
 	_createClass(ShowPoll, [{
-		key: 'showAnswers',
-		value: function showAnswers() {
-			console.log(this.state.poll.answers);
-		}
-	}, {
 		key: 'createPoll',
 		value: function createPoll() {
 			var poll = this.state.poll;
 			if (Array.isArray(poll.choices)) {
-				console.log(poll.answers);
 				return poll.choices.map(function (opts, i) {
 					poll.pickIndex = i;
 					return _react2.default.createElement(
@@ -27742,6 +27727,38 @@ var ShowPoll = function (_Component) {
 			}
 		}
 	}, {
+		key: 'createResults',
+		value: function createResults() {
+			var answers = this.state.poll.answers;
+			var sum = 0;
+			answers.forEach(function (ans) {
+				return sum += ans[1];
+			});
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'h3',
+					null,
+					'Total votes: ' + sum
+				),
+				this.determinePercentResults(answers, sum)
+			);
+		}
+	}, {
+		key: 'determinePercentResults',
+		value: function determinePercentResults(answers, sum) {
+			return answers.map(function (ans, i) {
+				return _react2.default.createElement(
+					'h4',
+					{ key: ans + i, className: 'answerResult' },
+					' ',
+					ans[0] + ': ' + (ans[1] / sum * 100).toFixed(2) + '%',
+					' '
+				);
+			});
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
@@ -27751,7 +27768,7 @@ var ShowPoll = function (_Component) {
 					'div',
 					{ className: 'ui container segment showQuestion' },
 					_react2.default.createElement(
-						'h1',
+						'h2',
 						null,
 						' ',
 						this.state.poll.question,
@@ -27769,21 +27786,24 @@ var ShowPoll = function (_Component) {
 						_react2.default.createElement('input', { type: 'submit', value: 'Delete This Poll', className: 'ui button red invert deletePoll' })
 					),
 					_react2.default.createElement(
-						'button',
-						{ type: 'button',
-							className: 'ui button red invert',
-							onClick: this.showAnswers.bind(this) },
-						' Console '
+						'a',
+						{ href: '/editpoll/' + this.state.poll._id },
+						_react2.default.createElement(
+							'button',
+							{ className: 'ui button red tiny' },
+							' Edit Poll '
+						)
 					)
 				),
 				_react2.default.createElement(
 					'div',
 					{ className: 'ui container segment showResults' },
 					_react2.default.createElement(
-						'div',
+						'h2',
 						null,
 						' Results '
-					)
+					),
+					this.createResults()
 				)
 			);
 		}
@@ -28231,7 +28251,7 @@ var NavBar = function (_Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				{ className: 'ui stackable menu' },
+				{ className: 'ui menu' },
 				_react2.default.createElement(
 					'a',
 					{ className: 'active item', href: '/' },

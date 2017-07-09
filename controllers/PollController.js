@@ -74,6 +74,7 @@ module.exports = {
 			}
 		} else {previousAnswers = [params.answers, 0]}
 		params.answers = previousAnswers;
+		
 		Poll.findByIdAndUpdate(id, params, {new: true},  function(err, poll){
 			if(err){
 				callback(err, null);
