@@ -30,6 +30,11 @@ body {
 	display: inline-block;
 }
 
+.removeOption{
+	margin-left: 15px;
+	display: inline-block;
+}
+
 .submitBtn.item {
 	display: inline-block;
 }

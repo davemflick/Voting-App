@@ -9,10 +9,11 @@ class EditPoll extends Component {
 		this.state = {
 			numOptions: 0,
 			currentPoll: {},
+			choices: [],
 			initialState: true,
 		}
 		this.increaseOpts = this.increaseOpts.bind(this);
-		this.removeOption = this.removeOption.bind(this);
+		this.decreaseOpts = this.decreaseOpts.bind(this);
 	}
 
 	//Take in props, after initial render, then re-render with poll property
@@ -40,6 +41,7 @@ class EditPoll extends Component {
 		let nextState = {
 			numOptions: numOpts,
 			currentPoll: currPoll,
+			choices: currPoll.choices,
 			initialState: false,
 		}
 		return nextState
@@ -55,29 +57,20 @@ class EditPoll extends Component {
 			)
 		} else {
 			let opts = [];
+			let choices = this.state.choices;
 			for(let i=0; i<this.state.numOptions; i++){
 				let choiceCount = i+1
+				let choice = choices[i];
 				opts.push(
 				<div key={'opt' + i} className='field'>
 					<div className='option'>
 						<label>{'Choice '+ choiceCount + ':'} </label>
-						<input type='text' name='option' defaultValue={this.state.currentPoll.choices[i]} />
-						{this.removeButtons(i)}
+						<input type='text' name='option' defaultValue={choice} />
 					</div>
 				</div>
 				);
 			}
 			return opts
-		}
-	}
-
-	removeButtons(i){
-		if(this.state.currentPoll.choices.length > 2){
-			return(
-				<div className='removeBtnDiv'>
-					<button id={'rem' + i} type='button' className='ui button red mini' onClick={this.removeOption}> Remove </button>
-				</div>
-			)
 		}
 	}
 
@@ -94,6 +87,17 @@ class EditPoll extends Component {
 		}
 	}
 
+	//Only show remove option if there are more than two options
+	showRemoveButton(){
+		if(this.state.numOptions > 2){
+			return(
+			<div className='removeOption'>
+				<button className='removeOpBtn ui button red' type='button' onClick={this.decreaseOpts}> Remove Option </button>
+			</div>
+			)
+		}
+	}
+
 	//Add an option input
 	increaseOpts(){
 		let numOpts = this.state.numOptions;
@@ -103,18 +107,15 @@ class EditPoll extends Component {
 		})
 	}
 
-	//Remove option input
-	removeOption(e){
-		let ind = +e.target.id[e.target.id.length-1]
-		let poll = this.state.currentPoll
-		console.log(ind, poll)
-		poll.choices.splice(ind,1);
-		poll.answers.splice(ind,1);
+	//Remove last option
+	decreaseOpts(){
+		let numOpts = this.state.numOptions;
+		numOpts--;
 		this.setState({
-			numOptions: poll.choices.length,
-			currentPoll: poll,
-		});
+			numOptions: numOpts
+		})
 	}
+
 
 	render(){
 		return(
@@ -131,6 +132,7 @@ class EditPoll extends Component {
 					<div className='addOption'>
 						<button className='addOpBtn ui button teal' type='button' onClick={this.increaseOpts}> Add Option </button>
 					</div>
+					{this.showRemoveButton()}
 				</form>
 			</div>
 		)

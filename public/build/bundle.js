@@ -27954,10 +27954,11 @@ var EditPoll = function (_Component) {
 		_this.state = {
 			numOptions: 0,
 			currentPoll: {},
+			choices: [],
 			initialState: true
 		};
 		_this.increaseOpts = _this.increaseOpts.bind(_this);
-		_this.removeOption = _this.removeOption.bind(_this);
+		_this.decreaseOpts = _this.decreaseOpts.bind(_this);
 		return _this;
 	}
 
@@ -27993,6 +27994,7 @@ var EditPoll = function (_Component) {
 			var nextState = {
 				numOptions: numOpts,
 				currentPoll: currPoll,
+				choices: currPoll.choices,
 				initialState: false
 			};
 			return nextState;
@@ -28017,8 +28019,10 @@ var EditPoll = function (_Component) {
 				);
 			} else {
 				var opts = [];
+				var choices = this.state.choices;
 				for (var i = 0; i < this.state.numOptions; i++) {
 					var choiceCount = i + 1;
+					var choice = choices[i];
 					opts.push(_react2.default.createElement(
 						'div',
 						{ key: 'opt' + i, className: 'field' },
@@ -28031,27 +28035,11 @@ var EditPoll = function (_Component) {
 								'Choice ' + choiceCount + ':',
 								' '
 							),
-							_react2.default.createElement('input', { type: 'text', name: 'option', defaultValue: this.state.currentPoll.choices[i] }),
-							this.removeButtons(i)
+							_react2.default.createElement('input', { type: 'text', name: 'option', defaultValue: choice })
 						)
 					));
 				}
 				return opts;
-			}
-		}
-	}, {
-		key: 'removeButtons',
-		value: function removeButtons(i) {
-			if (this.state.currentPoll.choices.length > 2) {
-				return _react2.default.createElement(
-					'div',
-					{ className: 'removeBtnDiv' },
-					_react2.default.createElement(
-						'button',
-						{ id: 'rem' + i, type: 'button', className: 'ui button red mini', onClick: this.removeOption },
-						' Remove '
-					)
-				);
 			}
 		}
 	}, {
@@ -28074,6 +28062,24 @@ var EditPoll = function (_Component) {
 			}
 		}
 
+		//Only show remove option if there are more than two options
+
+	}, {
+		key: 'showRemoveButton',
+		value: function showRemoveButton() {
+			if (this.state.numOptions > 2) {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'removeOption' },
+					_react2.default.createElement(
+						'button',
+						{ className: 'removeOpBtn ui button red', type: 'button', onClick: this.decreaseOpts },
+						' Remove Option '
+					)
+				);
+			}
+		}
+
 		//Add an option input
 
 	}, {
@@ -28086,19 +28092,15 @@ var EditPoll = function (_Component) {
 			});
 		}
 
-		//Remove option input
+		//Remove last option
 
 	}, {
-		key: 'removeOption',
-		value: function removeOption(e) {
-			var ind = +e.target.id[e.target.id.length - 1];
-			var poll = this.state.currentPoll;
-			console.log(ind, poll);
-			poll.choices.splice(ind, 1);
-			poll.answers.splice(ind, 1);
+		key: 'decreaseOpts',
+		value: function decreaseOpts() {
+			var numOpts = this.state.numOptions;
+			numOpts--;
 			this.setState({
-				numOptions: poll.choices.length,
-				currentPoll: poll
+				numOptions: numOpts
 			});
 		}
 	}, {
@@ -28132,7 +28134,8 @@ var EditPoll = function (_Component) {
 							{ className: 'addOpBtn ui button teal', type: 'button', onClick: this.increaseOpts },
 							' Add Option '
 						)
-					)
+					),
+					this.showRemoveButton()
 				)
 			);
 		}
