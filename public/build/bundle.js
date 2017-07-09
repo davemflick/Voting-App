@@ -28032,19 +28032,26 @@ var EditPoll = function (_Component) {
 								' '
 							),
 							_react2.default.createElement('input', { type: 'text', name: 'option', defaultValue: this.state.currentPoll.choices[i] }),
-							_react2.default.createElement(
-								'div',
-								{ className: 'removeBtnDiv' },
-								_react2.default.createElement(
-									'button',
-									{ type: 'button', className: i + ' ui button red mini', onClick: this.removeOption },
-									' Remove '
-								)
-							)
+							this.removeButtons(i)
 						)
 					));
 				}
 				return opts;
+			}
+		}
+	}, {
+		key: 'removeButtons',
+		value: function removeButtons(i) {
+			if (this.state.currentPoll.choices.length > 2) {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'removeBtnDiv' },
+					_react2.default.createElement(
+						'button',
+						{ id: 'rem' + i, type: 'button', className: 'ui button red mini', onClick: this.removeOption },
+						' Remove '
+					)
+				);
 			}
 		}
 	}, {
@@ -28061,7 +28068,8 @@ var EditPoll = function (_Component) {
 						null,
 						'Question'
 					),
-					_react2.default.createElement('input', { type: 'text', name: 'question', defaultValue: this.state.currentPoll.question })
+					_react2.default.createElement('input', { type: 'text', name: 'question', defaultValue: this.state.currentPoll.question }),
+					_react2.default.createElement('input', { className: 'hiddenInputData', type: 'none', name: 'hiddenData', defaultValue: this.state.currentPoll.answers })
 				);
 			}
 		}
@@ -28083,8 +28091,9 @@ var EditPoll = function (_Component) {
 	}, {
 		key: 'removeOption',
 		value: function removeOption(e) {
-			var ind = e.target.className;
+			var ind = +e.target.id[e.target.id.length - 1];
 			var poll = this.state.currentPoll;
+			console.log(ind, poll);
 			poll.choices.splice(ind, 1);
 			poll.answers.splice(ind, 1);
 			this.setState({

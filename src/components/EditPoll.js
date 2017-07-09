@@ -62,14 +62,22 @@ class EditPoll extends Component {
 					<div className='option'>
 						<label>{'Choice '+ choiceCount + ':'} </label>
 						<input type='text' name='option' defaultValue={this.state.currentPoll.choices[i]} />
-						<div className='removeBtnDiv'>
-							<button type='button' className={i  + ' ui button red mini'} onClick={this.removeOption}> Remove </button>
-						</div>
+						{this.removeButtons(i)}
 					</div>
 				</div>
 				);
 			}
 			return opts
+		}
+	}
+
+	removeButtons(i){
+		if(this.state.currentPoll.choices.length > 2){
+			return(
+				<div className='removeBtnDiv'>
+					<button id={'rem' + i} type='button' className='ui button red mini' onClick={this.removeOption}> Remove </button>
+				</div>
+			)
 		}
 	}
 
@@ -80,6 +88,7 @@ class EditPoll extends Component {
 			return(<div className='item field'>
 						<label>Question</label>
 						<input type='text' name='question' defaultValue={this.state.currentPoll.question} />
+						<input className='hiddenInputData' type='none' name='hiddenData' defaultValue={this.state.currentPoll.answers} />
 					</div>
 				)
 		}
@@ -96,8 +105,9 @@ class EditPoll extends Component {
 
 	//Remove option input
 	removeOption(e){
-		let ind = e.target.className
+		let ind = +e.target.id[e.target.id.length-1]
 		let poll = this.state.currentPoll
+		console.log(ind, poll)
 		poll.choices.splice(ind,1);
 		poll.answers.splice(ind,1);
 		this.setState({

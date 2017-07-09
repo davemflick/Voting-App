@@ -37,6 +37,11 @@ body {
 label {
 	display: block;
 }
+
+input.hiddenInputData {
+	position: absolute;
+	visibility: hidden;
+}
 /* END OF EDIT AND CREATE POLL PAGES */
 
 
