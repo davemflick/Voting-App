@@ -1,14 +1,30 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-
 }
 
 /* SHOW ALL POLLS PAGE*/
 .ui.container.segment.pollsContainer {
 	border: none;
 	box-shadow: none;
+	text-align: center;
 }
-/*END ALL POLLS PAGE*/
+
+.questionTitle{
+	text-align: center;
+}
+
+.ui.button.tiny.teal.vP{
+	width: 50%;
+	margin-top: 1em;
+}
+
+.createdBy {
+	text-align: right;
+	margin-top: 2em;
+	font-size: 0.9em;
+}
+
+/*END SHOW ALL POLLS PAGE*/
 
 
 /* EDIT AND CREATE POLL PAGES */
@@ -74,16 +90,48 @@ input.hiddenInputData {
 	margin-left: 10px;
 }
 
+.deleteForm{
+	display: inline-block;
+}
 .deletePoll.ui.button.red {
-	margin: 30px 0;
+	margin: 1.2em 10px;
+	display: inline-block;
+}
+.editPoll.ui.button.orange {
+	display: inline-block;
+	margin: 1.2em 0;
 }
 
 /* END OF SHOW SINGLE POLL PAGE */
+
+/* LOGIN AND REGISTER */
+
+.ui.container.segment.logRegCont {
+	text-align: center;
+}
+
+form.ui.form.logRegForm {
+	display: inline-block;
+	text-align: right;
+}
+
+.ui.button.mini.orange.logReg {
+	width: 100%;
+}
+
+.hrLogin {
+	width: 60%;
+	margin: 20px auto;
+}
+
+/* END OF LOGIN AND REGISTER */
+
 
 
 @media only screen and (max-width: 767px){
 	.ui.segment.container.showQuestion{
 		width: 100% !important;
+		margin-bottom: 2em;
 	}
 
 	.ui.segment.container.showResults {

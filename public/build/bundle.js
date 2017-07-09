@@ -24147,7 +24147,8 @@ var Home = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
 
 		_this.state = {
-			polls: []
+			polls: [],
+			username: ''
 		};
 		return _this;
 	}
@@ -24159,8 +24160,10 @@ var Home = function (_Component) {
 
 			_axios2.default.get('/api/polls').then(function (res) {
 				var polls = res.data.polls;
+				var user = res.data.username;
 				_this2.setState({
-					polls: polls
+					polls: polls,
+					username: user
 				});
 			}).catch(function (err) {
 				console.log(err);
@@ -24169,6 +24172,8 @@ var Home = function (_Component) {
 	}, {
 		key: 'createPathsForAllPolls',
 		value: function createPathsForAllPolls() {
+			var _this3 = this;
+
 			var polls = this.state.polls;
 			var paths = [];
 			polls.forEach(function (poll) {
@@ -24176,7 +24181,7 @@ var Home = function (_Component) {
 					key: poll._id,
 					path: '/poll/' + poll._id,
 					render: function render(props) {
-						return _react2.default.createElement(_ShowPoll2.default, { poll: poll });
+						return _react2.default.createElement(_ShowPoll2.default, { poll: poll, user: _this3.state.username });
 					} }));
 			});
 			return paths;
@@ -24192,7 +24197,7 @@ var Home = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			var _this3 = this;
+			var _this4 = this;
 
 			return _react2.default.createElement(
 				_reactRouterDom.BrowserRouter,
@@ -24202,12 +24207,12 @@ var Home = function (_Component) {
 					null,
 					_react2.default.createElement(_reactRouterDom.Route, { path: '/', exact: true, component: _HomePage2.default }),
 					_react2.default.createElement(_reactRouterDom.Route, { path: '/polls', render: function render(props) {
-							return _react2.default.createElement(_Polls2.default, { polls: _this3.state.polls });
+							return _react2.default.createElement(_Polls2.default, { polls: _this4.state.polls, user: _this4.state.username });
 						} }),
 					this.loadPaths(),
 					_react2.default.createElement(_reactRouterDom.Route, { path: '/newpoll', component: _CreatePoll2.default }),
 					_react2.default.createElement(_reactRouterDom.Route, { path: '/editpoll', render: function render(props) {
-							return _react2.default.createElement(_EditPoll2.default, { polls: _this3.state.polls });
+							return _react2.default.createElement(_EditPoll2.default, { polls: _this4.state.polls });
 						} }),
 					_react2.default.createElement(_reactRouterDom.Route, { path: '/register', component: _Register2.default }),
 					_react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _Login2.default }),
@@ -27578,7 +27583,8 @@ var Polls = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (Polls.__proto__ || Object.getPrototypeOf(Polls)).call(this, props));
 
 		_this.state = {
-			polls: []
+			polls: [],
+			initialState: true
 		};
 		return _this;
 	}
@@ -27589,14 +27595,39 @@ var Polls = function (_Component) {
 			if (this.props.polls !== nextprops.polls) {
 				var polls = nextprops.polls;
 				this.setState({
-					polls: polls
+					polls: polls,
+					initialState: false
 				});
+			}
+		}
+	}, {
+		key: 'structureDate',
+		value: function structureDate(d) {
+			var date = new Date(d);
+			var now = Date.now();
+			var timeLapsed = now - date.getTime();
+			var seconds = timeLapsed / 1000;
+			var mins = Math.round(seconds / 60);
+			var hours = Math.round(mins / 60);
+			var days = Math.floor(hours / 24);
+			if (mins < 1) {
+				return ' less than a minute ago';
+			} else if (mins >= 1 && mins < 60) {
+				return ' ' + mins + ' minutes ago';
+			} else if (hours < 24) {
+				return ' ' + hours + ' hours ago';
+			} else if (days === 1) {
+				return ' yesterday';
+			} else {
+				return ' ' + days + ' days ago';
 			}
 		}
 	}, {
 		key: 'renderPolls',
 		value: function renderPolls() {
-			if (this.state.polls.length < 1) {
+			var _this2 = this;
+
+			if (this.state.initialState) {
 				return _react2.default.createElement(
 					'div',
 					null,
@@ -27610,21 +27641,29 @@ var Polls = function (_Component) {
 						{ key: i, className: 'ui container segment' },
 						_react2.default.createElement(
 							'h2',
-							null,
+							{ className: 'questionTitle' },
 							poll.question
 						),
 						_react2.default.createElement(
-							'p',
-							null,
-							poll.author.username
+							'a',
+							{ href: '/poll/' + poll._id, className: 'ui button teal tiny vP' },
+							' View Poll!'
 						),
 						_react2.default.createElement(
-							'a',
-							{ href: '/poll/' + poll._id },
+							'p',
+							{ className: 'createdBy' },
+							'Created by ',
 							_react2.default.createElement(
-								'button',
-								{ className: 'ui button teal tiny' },
-								' View Poll '
+								'em',
+								null,
+								poll.author.username
+							),
+							_react2.default.createElement(
+								'span',
+								{ className: 'timeCreated' },
+								' ',
+								_this2.structureDate(poll.timestamp),
+								' '
 							)
 						)
 					);
@@ -27705,7 +27744,8 @@ var ShowPoll = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (ShowPoll.__proto__ || Object.getPrototypeOf(ShowPoll)).call(this, props));
 
 		_this.state = {
-			poll: _this.props.poll
+			poll: _this.props.poll,
+			user: _this.props.user
 		};
 		return _this;
 	}
@@ -27742,16 +27782,28 @@ var ShowPoll = function (_Component) {
 			answers.forEach(function (ans) {
 				return sum += ans[1];
 			});
-			return _react2.default.createElement(
-				'div',
-				null,
-				_react2.default.createElement(
-					'h3',
+			if (sum > 0) {
+				return _react2.default.createElement(
+					'div',
 					null,
-					'Total votes: ' + sum
-				),
-				this.determinePercentResults(answers, sum)
-			);
+					_react2.default.createElement(
+						'h3',
+						null,
+						'Total votes: ' + sum
+					),
+					this.determinePercentResults(answers, sum)
+				);
+			} else {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'h3',
+						null,
+						'Total votes: ' + sum
+					)
+				);
+			}
 		}
 	}, {
 		key: 'determinePercentResults',
@@ -27765,6 +27817,32 @@ var ShowPoll = function (_Component) {
 					' '
 				);
 			});
+		}
+	}, {
+		key: 'checkIfPollCreator',
+		value: function checkIfPollCreator() {
+			var currUser = this.state.poll.author.username;
+			var creator = this.state.user;
+			if (currUser === creator) {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'a',
+						{ href: '/editpoll/' + this.state.poll._id },
+						_react2.default.createElement(
+							'button',
+							{ className: 'ui button mini orange editPoll' },
+							' Edit Poll '
+						)
+					),
+					_react2.default.createElement(
+						'form',
+						{ action: "/api/polls/" + this.state.poll._id + '?_method=DELETE', method: 'post', className: 'deleteForm' },
+						_react2.default.createElement('input', { type: 'submit', value: 'Delete This Poll', className: 'ui button mini red deletePoll' })
+					)
+				);
+			}
 		}
 	}, {
 		key: 'render',
@@ -27786,22 +27864,9 @@ var ShowPoll = function (_Component) {
 						'form',
 						{ action: '/api/polls/' + this.state.poll._id + '/answer?_method=PUT', method: 'post', className: 'ui form' },
 						this.createPoll(),
-						_react2.default.createElement('input', { type: 'submit', className: 'ui button blue mini' })
+						_react2.default.createElement('input', { type: 'submit', className: 'ui button blue mini', value: 'Vote!' })
 					),
-					_react2.default.createElement(
-						'form',
-						{ action: "/api/polls/" + this.state.poll._id + '?_method=DELETE', method: 'post' },
-						_react2.default.createElement('input', { type: 'submit', value: 'Delete This Poll', className: 'ui button red invert deletePoll' })
-					),
-					_react2.default.createElement(
-						'a',
-						{ href: '/editpoll/' + this.state.poll._id },
-						_react2.default.createElement(
-							'button',
-							{ className: 'ui button red tiny' },
-							' Edit Poll '
-						)
-					)
+					this.checkIfPollCreator()
 				),
 				_react2.default.createElement(
 					'div',
@@ -28213,7 +28278,7 @@ var Register = function (_Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				{ className: 'ui container segment' },
+				{ className: 'ui container segment logRegCont' },
 				_react2.default.createElement(
 					'h1',
 					null,
@@ -28221,7 +28286,7 @@ var Register = function (_Component) {
 				),
 				_react2.default.createElement(
 					'form',
-					{ action: '/user/register', method: 'post', className: 'ui form' },
+					{ action: '/user/register', method: 'post', className: 'ui form logRegForm' },
 					_react2.default.createElement(
 						'div',
 						{ className: 'field inline' },
@@ -28255,8 +28320,19 @@ var Register = function (_Component) {
 					_react2.default.createElement(
 						'div',
 						{ className: 'field' },
-						_react2.default.createElement('input', { type: 'submit', value: 'Register', className: 'ui button mini orange' })
+						_react2.default.createElement('input', { type: 'submit', value: 'Register', className: 'ui button mini orange logReg' })
 					)
+				),
+				_react2.default.createElement('hr', { className: 'hrLogin' }),
+				_react2.default.createElement(
+					'h5',
+					null,
+					' Already Registered? '
+				),
+				_react2.default.createElement(
+					'a',
+					{ className: 'item ui button tiny green', href: '/login' },
+					' Go to Login '
 				)
 			);
 		}
@@ -28306,7 +28382,7 @@ var Login = function (_Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				{ className: 'ui container segment' },
+				{ className: 'ui container segment logRegCont' },
 				_react2.default.createElement(
 					'h1',
 					null,
@@ -28314,7 +28390,7 @@ var Login = function (_Component) {
 				),
 				_react2.default.createElement(
 					'form',
-					{ action: '/user/login', method: 'post', className: 'ui form' },
+					{ action: '/user/login', method: 'post', className: 'ui form logRegForm' },
 					_react2.default.createElement(
 						'div',
 						{ className: 'field inline' },
@@ -28338,8 +28414,19 @@ var Login = function (_Component) {
 					_react2.default.createElement(
 						'div',
 						{ className: 'field' },
-						_react2.default.createElement('input', { type: 'submit', value: 'Login', className: 'ui button mini orange' })
+						_react2.default.createElement('input', { type: 'submit', value: 'Login', className: 'ui button mini orange logReg' })
 					)
+				),
+				_react2.default.createElement('hr', { className: 'hrLogin' }),
+				_react2.default.createElement(
+					'h5',
+					null,
+					' Not Registered? '
+				),
+				_react2.default.createElement(
+					'a',
+					{ className: 'item ui button tiny green', href: '/register' },
+					' Go to Register '
 				)
 			);
 		}
@@ -28413,6 +28500,10 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _axios = __webpack_require__(61);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28424,13 +28515,65 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var NavBar = function (_Component) {
 	_inherits(NavBar, _Component);
 
-	function NavBar() {
+	function NavBar(props) {
 		_classCallCheck(this, NavBar);
 
-		return _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).apply(this, arguments));
+		var _this = _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
+
+		_this.state = {
+			username: ''
+		};
+		return _this;
 	}
 
 	_createClass(NavBar, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var _this2 = this;
+
+			_axios2.default.get('/api/polls').then(function (res) {
+				var user = res.data.username;
+				_this2.setState({
+					username: user
+				});
+			}).catch(function (err) {
+				console.log(err);
+			});
+		}
+	}, {
+		key: 'determineUserStatus',
+		value: function determineUserStatus() {
+			var user = this.state.username;
+			if (user === 'noUser' || user === '') {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'right menu' },
+					_react2.default.createElement(
+						'a',
+						{ className: 'item', href: '/login' },
+						' Login/Register '
+					)
+				);
+			} else {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'right menu' },
+					_react2.default.createElement(
+						'a',
+						{ className: 'item', href: '#' },
+						' ',
+						'Logged in as ' + user,
+						' '
+					),
+					_react2.default.createElement(
+						'a',
+						{ className: 'item', href: '/user/logout' },
+						' Logout '
+					)
+				);
+			}
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
@@ -28451,25 +28594,7 @@ var NavBar = function (_Component) {
 					{ className: 'item', href: '/newpoll' },
 					' Create Poll '
 				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'right menu' },
-					_react2.default.createElement(
-						'a',
-						{ className: 'item', href: '/login' },
-						' Login '
-					),
-					_react2.default.createElement(
-						'a',
-						{ className: 'item', href: '/register' },
-						' Register '
-					),
-					_react2.default.createElement(
-						'a',
-						{ className: 'item', href: '/user/logout' },
-						' Logout '
-					)
-				)
+				this.determineUserStatus()
 			);
 		}
 	}]);

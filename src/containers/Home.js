@@ -16,6 +16,7 @@ class Home extends Component {
 		super(props);
 		this.state = {
 			polls: [],
+			username: ''
 		}
 	}
 
@@ -23,8 +24,10 @@ class Home extends Component {
 		axios.get('/api/polls')
 			.then((res)=>{
 				let polls = res.data.polls
+				let user = res.data.username
 				this.setState({
-					polls: polls
+					polls: polls,
+					username: user
 				})
 			})
 			.catch((err)=>{
@@ -40,7 +43,7 @@ class Home extends Component {
 				<Route 
 					key={poll._id}
 					path={'/poll/' + poll._id} 
-					render={(props)=><ShowPoll poll={poll} />} />
+					render={(props)=><ShowPoll poll={poll} user={this.state.username} />} />
 			)
 		});
 		return paths
@@ -58,7 +61,7 @@ class Home extends Component {
 			<Router>
 				<Switch>
 					<Route path='/' exact component={HomePage} />
-					<Route path='/polls' render={(props)=><Polls polls={this.state.polls} />} />
+					<Route path='/polls' render={(props)=><Polls polls={this.state.polls} user={this.state.username} />} />
 					{this.loadPaths()}
 					<Route path='/newpoll' component={CreatePoll} />
 					<Route path='/editpoll' render={(props)=><EditPoll polls={this.state.polls} />} />

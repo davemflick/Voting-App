@@ -42,7 +42,7 @@ app.set('view engine', 'pug');
 app.use(require("express-session")({
   secret: "My secret message",
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
 }));
 
 // uncomment after placing your favicon in /public

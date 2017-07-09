@@ -17,6 +17,11 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.get("/:resource", function(req, res, next){
 	var resource = req.params.resource;
 	var controller = controllers[resource];
+	 let currentUser = 'noUser';
+	  if(req.user){
+	  	currentUser = req.user.username;
+	  }
+	  console.log(currentUser)
 	controller.find(req.query, function(err, results){
 		if(err){
 			res.json({
@@ -26,8 +31,8 @@ router.get("/:resource", function(req, res, next){
 			return
 		} else {
 			if(resource === 'polls'){
-				res.json({polls: results})
-			} else {
+				res.json({polls: results, username: currentUser})
+			}else{
 				res.render(resource, {results: results})
 			}
 		}
@@ -136,7 +141,7 @@ router.put("/:resource/:id", function(req, res, next){
 	});
 });
 //UPDATE to add answer to poll
-router.put("/:resource/:id/answer", function(req, res, next){
+router.put("/:resource/:id/answer", isLoggedIn, function(req, res, next){
 	var id = req.params.id;
 	var resource = req.params.resource;
 	var controller = controllers[resource];
