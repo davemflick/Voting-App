@@ -45,11 +45,9 @@ export default class ShowPoll extends Component {
 				backgroundColor: this.createColors(answers.length),
 			}]
 		}
-
-
 		return totalVotes > 0 ?
-				 <Doughnut data={data} width={200} height={200} /> :
-				 <h2> No Votes Casted Yet </h2>
+				 <Doughnut className='doughnut' data={data} /> :
+				 <h4> No Votes Casted Yet </h4>
 	}
 
 	createColors(n){
@@ -95,6 +93,7 @@ export default class ShowPoll extends Component {
 					{this.checkIfPollCreator()}
 				</div>
 				<div className='ui container segment showResults'>
+					<h2 className='pollResults'> Results </h2>
 					{this.createResults()}
 				</div>
 			</div>

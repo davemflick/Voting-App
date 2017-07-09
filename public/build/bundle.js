@@ -43867,9 +43867,8 @@ var ShowPoll = function (_Component) {
 					backgroundColor: this.createColors(answers.length)
 				}]
 			};
-
-			return totalVotes > 0 ? _react2.default.createElement(_reactChartjs.Doughnut, { data: data, width: 200, height: 200 }) : _react2.default.createElement(
-				'h2',
+			return totalVotes > 0 ? _react2.default.createElement(_reactChartjs.Doughnut, { className: 'doughnut', data: data }) : _react2.default.createElement(
+				'h4',
 				null,
 				' No Votes Casted Yet '
 			);
@@ -43942,6 +43941,11 @@ var ShowPoll = function (_Component) {
 				_react2.default.createElement(
 					'div',
 					{ className: 'ui container segment showResults' },
+					_react2.default.createElement(
+						'h2',
+						{ className: 'pollResults' },
+						' Results '
+					),
 					this.createResults()
 				)
 			);

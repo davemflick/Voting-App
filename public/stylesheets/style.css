@@ -86,6 +86,14 @@ input.hiddenInputData {
 	margin-top: 0;
 }
 
+.pollResults {
+	margin-top: 0;
+}
+
+.doughnut {
+	width: 100%;
+}
+
 .choiceOpt {
 	margin-left: 10px;
 }
