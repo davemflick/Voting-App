@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Doughnut} from 'react-chartjs-2';
 
 
 export default class ShowPoll extends Component {
@@ -27,31 +28,42 @@ export default class ShowPoll extends Component {
 		}
 	}
 
+	
 	createResults(){
-		let answers = this.state.poll.answers;
-		let sum = 0
-		answers.forEach(ans=> sum += ans[1]);
-		if(sum > 0){
-			return (
-				<div>
-					<h3>{'Total votes: '+sum}</h3>
-					{this.determinePercentResults(answers, sum)}
-				</div>
-			)
-		} else {
-			return (
-			<div>
-				<h3>{'Total votes: '+sum}</h3>
-			</div>
-			)
+		let answers = [];
+		let votes = [];
+		let totalVotes = 0;
+		this.state.poll.answers.forEach(ans=>{
+			answers.push(ans[0]);
+			votes.push(+ans[1]);
+			totalVotes += +ans[1]
+		})
+		let data = {
+			labels: answers,
+			datasets: [{
+				data: votes,
+				backgroundColor: this.createColors(answers.length),
+			}]
 		}
-		
+
+
+		return totalVotes > 0 ?
+				 <Doughnut data={data} width={200} height={200} /> :
+				 <h2> No Votes Casted Yet </h2>
 	}
 
-	determinePercentResults(answers, sum){
-		return answers.map((ans, i)=>{
-				return	<h4 key={ans + i} className='answerResult'> {`${ans[0]}: ${((ans[1]/sum)*100).toFixed(2)}%`} </h4>
-			})
+	createColors(n){
+		let chars=['a','b','c','d','e','f',0,1,2,3,4,5,6,7,8,9];
+		let colors = [];
+		for(let i=0; i<n; i++){
+			let hex = '#'
+			for(var x=1; x<=6; x++){
+				hex += chars[Math.floor(Math.random() *16)]
+			}
+			colors.push(hex);
+		}
+
+		return colors;
 	}
 
 	checkIfPollCreator(){
@@ -83,7 +95,6 @@ export default class ShowPoll extends Component {
 					{this.checkIfPollCreator()}
 				</div>
 				<div className='ui container segment showResults'>
-					<h2> Results </h2>
 					{this.createResults()}
 				</div>
 			</div>

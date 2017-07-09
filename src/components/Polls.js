@@ -29,9 +29,13 @@ export default class Polls extends Component {
 		let days = Math.floor(hours/24);
 		if(mins < 1){
 			return ' less than a minute ago';
-		} else if( mins >= 1 && mins < 60){
+		} else if( mins === 1){
+			return ' 1 minute ago';
+		}else if( mins >= 2 && mins < 60){
 			return ' ' + mins + ' minutes ago';
-		} else if( hours < 24){
+		} else if( hours === 1 ){
+			return ' 1 hour ago'
+		} else if( hours > 1 && hours < 24){
 			return ' ' + hours + ' hours ago'
 		} else if ( days === 1){
 			return ' yesterday';
