@@ -11,7 +11,7 @@ var mongoose = require('mongoose');
 
 
 //CONNECT MONGOOSE TO DB
-var dbUrl = 'mongodb://localhost/voting-app';
+var dbUrl = process.env.VOTINGAPPDATABASE || 'mongodb://localhost/voting-app';
 mongoose.connect(dbUrl, {useMongoClient: true}, function(err){
 	if(err){
 		console.log(err);

@@ -10,7 +10,7 @@ body {
 }
 
 html {
-	min-height: 100% !important;
+	min-height: 100vh;
 	height: 100%;
 }
 
@@ -29,6 +29,9 @@ html {
 	text-align: center;
 	background: rgba(0,0,0,0);
 	padding-bottom: 60px;
+	display: block;
+	overflow: auto;
+	flex: 1 0 auto;
 }
 
 .pollsHeader {
@@ -71,6 +74,7 @@ ul.pollList {
 	padding-top: 30px;
 	display: block;
 	overflow: auto;
+	flex: 1 0 auto;
 }
 
 .removeBtnDiv{
