@@ -1,20 +1,53 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: #abbaab; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #abbaab, #ffffff); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #abbaab, #ffffff)
+  height: 100%;
+  min-height: 100% !important;
 }
+
+html {
+	min-height: 100vh !important;
+	height: 100vh;
+}
+
+.reactBody {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
 
 /* SHOW ALL POLLS PAGE*/
 .ui.container.segment.pollsContainer {
 	border: none;
 	box-shadow: none;
 	text-align: center;
+	background: rgba(0,0,0,0);
+	padding-bottom: 60px;
+}
+
+.pollsHeader {
+	font-size: 3.1em;
+	color: #FEFEFE;
+	text-shadow: 3px 3px 3px #555;
+}
+
+.ui.segment.container.singlePoll {
+	background-color: rgba(255,255,255, 0.7);
 }
 
 .questionTitle{
 	text-align: center;
 }
 
-.ui.button.tiny.teal.vP{
-	width: 50%;
+ul.pollList {
+	padding: 0;
+}
+
+.ui.button.green.vP{
+	width: 60%;
 	margin-top: 1em;
 }
 
@@ -71,16 +104,26 @@ input.hiddenInputData {
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
+	height: 100vh;
 }
 
 .showPageHeader {
 	text-align: center;
 	margin: 0 auto;
-	padding: 1.0em;
+	height: 100px;
+	padding-top: 0.5em;
 	display: block;
 	width: 100%;
+	font-size: 3.1em;
+	color: #FEFEFE;
+	text-shadow: 3px 3px 3px #555;
 }
 .showChoices {
+	display: inline-block;
+}
+
+.questionContainer {
+	text-align: left;
 	display: inline-block;
 }
 
@@ -88,11 +131,13 @@ input.hiddenInputData {
 	margin-top: 0.5em;
 	width: 80%;
 	margin-bottom: 20px;
+	text-align: center;
 }
 
 .ui.segment.container.showResults {
 	width: 80%;
 	margin-top: 10px;
+	margin-bottom: 100px;
 }
 
 .pollResults {
@@ -122,9 +167,14 @@ input.hiddenInputData {
 /* END OF SHOW SINGLE POLL PAGE */
 
 /* LOGIN AND REGISTER */
+.loginRegDiv{
+	min-height: 100vh;
+	height: 100%;
+}
 
 .ui.container.segment.logRegCont {
 	text-align: center;
+	margin-top: 2em;
 }
 
 form.ui.form.logRegForm {
@@ -165,16 +215,17 @@ form.ui.form.logRegForm {
 .homePage {
 	margin: 5em auto;
 	display: inline-block;
-	background-color: rgba(230,230,230,0.5);
+	background-color: rgba(230,230,230,0.7);
 	padding: 15px 30px;
 	border: 2px rgba(0,0,0,0.4);
 	border-radius: 10px;
-	box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+	box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
 }
 
 .homePageDiv {
 	width: 100%;
-	height: 100vh;
+	min-height: 100vh;
+	margin-bottom: 10px;
 	text-align: center;
 }
 
@@ -243,6 +294,15 @@ form.ui.form.logRegForm {
 
 /* END OF HOME PAGE*/
 
+.footer {
+	width: 100%;
+	background-color: white;
+	height: 60px;
+	margin-top: -60px;
+	padding: 10px;
+	text-align: center;
+	border-top: 2px solid #444;
+}
 
 @media only screen and (max-width: 767px){
 	.ui.segment.container.showQuestion{
@@ -259,20 +319,16 @@ form.ui.form.logRegForm {
 @media only screen and (min-width: 1100px){
 	.ui.segment.container.showQuestion{
 		width: 45% !important;
-		margin-bottom: 0;
+		margin-bottom: 100px;
 		margin-top: 0;
 		text-align: center;
-	}
-
-	.questionContainer {
-		margin: 0 auto;
-		text-align: left;
-		display: inline-block;
+		max-height: 600px;
 	}
 
 	.ui.segment.container.showResults {
 		width: 45% !important;
 		margin-top: 0;
+		max-height: 600px;
 	}
 }
 

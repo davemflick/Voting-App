@@ -4,6 +4,7 @@ export default class Login extends Component{
 
 	render(){
 		return(
+			<div className='loginRegDiv'>
 			<div className='ui container segment logRegCont'>
 				<h1> Login </h1>
 				<form action='/user/login' method='post' className='ui form logRegForm'>
@@ -22,6 +23,7 @@ export default class Login extends Component{
 				<hr className='hrLogin' />
 				<h5> Not Registered? </h5>
 				<a className='item ui button tiny green' href='/register'> Go to Register </a>
+			</div>
 			</div>
 		)
 	}

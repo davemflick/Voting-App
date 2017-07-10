@@ -28018,6 +28018,10 @@ var _NavBar = __webpack_require__(429);
 
 var _NavBar2 = _interopRequireDefault(_NavBar);
 
+var _Footer = __webpack_require__(430);
+
+var _Footer2 = _interopRequireDefault(_Footer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28040,9 +28044,10 @@ var App = function (_Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				null,
+				{ className: 'reactBody' },
 				_react2.default.createElement(_NavBar2.default, null),
-				_react2.default.createElement(_Home2.default, null)
+				_react2.default.createElement(_Home2.default, null),
+				_react2.default.createElement(_Footer2.default, null)
 			);
 		}
 	}]);
@@ -43586,25 +43591,25 @@ var Home = function (_Component) {
 					_react2.default.createElement(
 						'h1',
 						null,
-						' Make and Take Polls '
+						' Fullstack Voting App '
 					),
 					_react2.default.createElement(
-						'p',
+						'h5',
 						null,
 						'Register a Username'
 					),
 					_react2.default.createElement(
-						'p',
+						'h5',
 						null,
 						'Create and edit your own polls '
 					),
 					_react2.default.createElement(
-						'p',
+						'h5',
 						null,
 						'Vote on other users polls or even your own '
 					),
 					_react2.default.createElement(
-						'p',
+						'h5',
 						null,
 						'Unlimited voting per poll '
 					),
@@ -43725,7 +43730,7 @@ var Polls = function (_Component) {
 				return this.state.polls.map(function (poll, i) {
 					return _react2.default.createElement(
 						'li',
-						{ key: i, className: 'ui container segment' },
+						{ key: i, className: 'ui container segment singlePoll' },
 						_react2.default.createElement(
 							'h2',
 							{ className: 'questionTitle' },
@@ -43733,7 +43738,7 @@ var Polls = function (_Component) {
 						),
 						_react2.default.createElement(
 							'a',
-							{ href: '/poll/' + poll._id, className: 'ui button teal tiny vP' },
+							{ href: '/poll/' + poll._id, className: 'ui button green vP' },
 							' View Poll!'
 						),
 						_react2.default.createElement(
@@ -43785,7 +43790,7 @@ var Polls = function (_Component) {
 				),
 				_react2.default.createElement(
 					'ul',
-					{ className: 'ui container segment' },
+					{ className: 'pollList' },
 					this.renderPolls()
 				)
 			);
@@ -43933,7 +43938,7 @@ var ShowPoll = function (_Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				{ className: 'showPage' },
+				{ className: 'showPageDiv' },
 				_react2.default.createElement(
 					'h1',
 					{ className: 'showPageHeader' },
@@ -43941,35 +43946,39 @@ var ShowPoll = function (_Component) {
 				),
 				_react2.default.createElement(
 					'div',
-					{ className: 'ui container segment showQuestion' },
+					{ className: 'showPage' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'questionContainer' },
+						{ className: 'ui container segment showQuestion' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'questionContainer' },
+							_react2.default.createElement(
+								'h2',
+								null,
+								' ',
+								this.state.poll.question,
+								' '
+							),
+							_react2.default.createElement(
+								'form',
+								{ action: '/api/polls/' + this.state.poll._id + '/answer?_method=PUT', method: 'post', className: 'ui form' },
+								this.createPoll(),
+								_react2.default.createElement('input', { type: 'submit', className: 'ui button blue mini', value: 'Vote!' })
+							),
+							this.checkIfPollCreator()
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'ui container segment showResults' },
 						_react2.default.createElement(
 							'h2',
-							null,
-							' ',
-							this.state.poll.question,
-							' '
+							{ className: 'pollResults' },
+							' Results '
 						),
-						_react2.default.createElement(
-							'form',
-							{ action: '/api/polls/' + this.state.poll._id + '/answer?_method=PUT', method: 'post', className: 'ui form' },
-							this.createPoll(),
-							_react2.default.createElement('input', { type: 'submit', className: 'ui button blue mini', value: 'Vote!' })
-						),
-						this.checkIfPollCreator()
+						this.createResults()
 					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'ui container segment showResults' },
-					_react2.default.createElement(
-						'h2',
-						{ className: 'pollResults' },
-						' Results '
-					),
-					this.createResults()
 				)
 			);
 		}
@@ -59526,61 +59535,65 @@ var Register = function (_Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				{ className: 'ui container segment logRegCont' },
+				{ className: 'loginRegDiv' },
 				_react2.default.createElement(
-					'h1',
-					null,
-					' Register User '
-				),
-				_react2.default.createElement(
-					'form',
-					{ action: '/user/register', method: 'post', className: 'ui form logRegForm' },
+					'div',
+					{ className: 'ui container segment logRegCont' },
 					_react2.default.createElement(
-						'div',
-						{ className: 'field inline' },
-						_react2.default.createElement(
-							'label',
-							null,
-							' Username '
-						),
-						_react2.default.createElement('input', { type: 'text', name: 'username', placeholder: 'Choose Username' })
+						'h1',
+						null,
+						' Register User '
 					),
 					_react2.default.createElement(
-						'div',
-						{ className: 'field inline' },
+						'form',
+						{ action: '/user/register', method: 'post', className: 'ui form logRegForm' },
 						_react2.default.createElement(
-							'label',
-							null,
-							' Email '
+							'div',
+							{ className: 'field inline' },
+							_react2.default.createElement(
+								'label',
+								null,
+								' Username '
+							),
+							_react2.default.createElement('input', { type: 'text', name: 'username', placeholder: 'Choose Username' })
 						),
-						_react2.default.createElement('input', { type: 'email', name: 'email', placeholder: 'Your email' })
+						_react2.default.createElement(
+							'div',
+							{ className: 'field inline' },
+							_react2.default.createElement(
+								'label',
+								null,
+								' Email '
+							),
+							_react2.default.createElement('input', { type: 'email', name: 'email', placeholder: 'Your email' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'field inline' },
+							_react2.default.createElement(
+								'label',
+								null,
+								' Password '
+							),
+							_react2.default.createElement('input', { type: 'password', name: 'password', placeholder: 'Password' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'field' },
+							_react2.default.createElement('input', { type: 'submit', value: 'Register', className: 'ui button mini orange logReg' })
+						)
+					),
+					_react2.default.createElement('hr', { className: 'hrLogin' }),
+					_react2.default.createElement(
+						'h5',
+						null,
+						' Already Registered? '
 					),
 					_react2.default.createElement(
-						'div',
-						{ className: 'field inline' },
-						_react2.default.createElement(
-							'label',
-							null,
-							' Password '
-						),
-						_react2.default.createElement('input', { type: 'password', name: 'password', placeholder: 'Password' })
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'field' },
-						_react2.default.createElement('input', { type: 'submit', value: 'Register', className: 'ui button mini orange logReg' })
+						'a',
+						{ className: 'item ui button tiny green', href: '/login' },
+						' Go to Login '
 					)
-				),
-				_react2.default.createElement('hr', { className: 'hrLogin' }),
-				_react2.default.createElement(
-					'h5',
-					null,
-					' Already Registered? '
-				),
-				_react2.default.createElement(
-					'a',
-					{ className: 'item ui button tiny green', href: '/login' },
-					' Go to Login '
 				)
 			);
 		}
@@ -59630,51 +59643,55 @@ var Login = function (_Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				{ className: 'ui container segment logRegCont' },
+				{ className: 'loginRegDiv' },
 				_react2.default.createElement(
-					'h1',
-					null,
-					' Login '
-				),
-				_react2.default.createElement(
-					'form',
-					{ action: '/user/login', method: 'post', className: 'ui form logRegForm' },
+					'div',
+					{ className: 'ui container segment logRegCont' },
 					_react2.default.createElement(
-						'div',
-						{ className: 'field inline' },
-						_react2.default.createElement(
-							'label',
-							null,
-							' Username '
-						),
-						_react2.default.createElement('input', { type: 'text', name: 'username', placeholder: 'Choose Username' })
+						'h1',
+						null,
+						' Login '
 					),
 					_react2.default.createElement(
-						'div',
-						{ className: 'field inline' },
+						'form',
+						{ action: '/user/login', method: 'post', className: 'ui form logRegForm' },
 						_react2.default.createElement(
-							'label',
-							null,
-							' Password '
+							'div',
+							{ className: 'field inline' },
+							_react2.default.createElement(
+								'label',
+								null,
+								' Username '
+							),
+							_react2.default.createElement('input', { type: 'text', name: 'username', placeholder: 'Choose Username' })
 						),
-						_react2.default.createElement('input', { type: 'password', name: 'password', placeholder: 'Password' })
+						_react2.default.createElement(
+							'div',
+							{ className: 'field inline' },
+							_react2.default.createElement(
+								'label',
+								null,
+								' Password '
+							),
+							_react2.default.createElement('input', { type: 'password', name: 'password', placeholder: 'Password' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'field' },
+							_react2.default.createElement('input', { type: 'submit', value: 'Login', className: 'ui button mini orange logReg' })
+						)
+					),
+					_react2.default.createElement('hr', { className: 'hrLogin' }),
+					_react2.default.createElement(
+						'h5',
+						null,
+						' Not Registered? '
 					),
 					_react2.default.createElement(
-						'div',
-						{ className: 'field' },
-						_react2.default.createElement('input', { type: 'submit', value: 'Login', className: 'ui button mini orange logReg' })
+						'a',
+						{ className: 'item ui button tiny green', href: '/register' },
+						' Go to Register '
 					)
-				),
-				_react2.default.createElement('hr', { className: 'hrLogin' }),
-				_react2.default.createElement(
-					'h5',
-					null,
-					' Not Registered? '
-				),
-				_react2.default.createElement(
-					'a',
-					{ className: 'item ui button tiny green', href: '/register' },
-					' Go to Register '
 				)
 			);
 		}
@@ -59851,6 +59868,65 @@ var NavBar = function (_Component) {
 }(_react.Component);
 
 module.exports = NavBar;
+
+/***/ }),
+/* 430 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Footer = function (_Component) {
+	_inherits(Footer, _Component);
+
+	function Footer() {
+		_classCallCheck(this, Footer);
+
+		return _possibleConstructorReturn(this, (Footer.__proto__ || Object.getPrototypeOf(Footer)).apply(this, arguments));
+	}
+
+	_createClass(Footer, [{
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'div',
+				{ className: 'footer' },
+				_react2.default.createElement(
+					'h5',
+					null,
+					'Created by ',
+					_react2.default.createElement(
+						'a',
+						{ href: 'https://github.com/davemflick', target: '_blank' },
+						' David Flick'
+					)
+				)
+			);
+		}
+	}]);
+
+	return Footer;
+}(_react.Component);
+
+exports.default = Footer;
 
 /***/ })
 /******/ ]);

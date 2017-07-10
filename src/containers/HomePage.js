@@ -7,11 +7,11 @@ class Home extends Component {
 		return(
 			<div className='homePageDiv'>
 				<div className="homePage">
-					<h1> Make and Take Polls </h1>
-					<p>Register a Username</p>
-					<p>Create and edit your own polls </p>
-					<p>Vote on other users polls or even your own </p>
-					<p>Unlimited voting per poll </p>
+					<h1> Fullstack Voting App </h1>
+					<h5>Register a Username</h5>
+					<h5>Create and edit your own polls </h5>
+					<h5>Vote on other users polls or even your own </h5>
+					<h5>Unlimited voting per poll </h5>
 					<a href='/polls' className='ui button green goToPolls'> View Currently Posted Polls! </a>
 				</div>
 				<ul className='slideshow'>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 export default class Polls extends Component {
 	constructor(props){
 		super(props);
@@ -50,9 +51,9 @@ export default class Polls extends Component {
 		} else {
 			let polls = [];
 			return this.state.polls.map((poll, i)=>
-					<li key={i} className="ui container segment">
+					<li key={i} className="ui container segment singlePoll">
 						<h2 className='questionTitle'>{poll.question}</h2>
-						<a href={'/poll/' + poll._id} className='ui button teal tiny vP'> View Poll!</a>
+						<a href={'/poll/' + poll._id} className='ui button green vP'> View Poll!</a>
 						<p className='createdBy'>
 							Created by <em>{poll.author.username}</em>
 							<span className='timeCreated'> {this.structureDate(poll.timestamp)} </span>
@@ -72,7 +73,7 @@ export default class Polls extends Component {
 		return(
 			<div className='ui container segment pollsContainer'>
 				<h1 className='pollsHeader'> Posted Polls </h1>
-				<ul className='ui container segment'>
+				<ul className='pollList'>
 					{this.renderPolls()}
 				</ul>
 			</div>

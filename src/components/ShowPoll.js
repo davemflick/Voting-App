@@ -83,21 +83,23 @@ export default class ShowPoll extends Component {
 
 	render(){
 		return(
-			<div className='showPage'>
+			<div className='showPageDiv'>
 				<h1 className='showPageHeader'>Vote and View!</h1>
-				<div className='ui container segment showQuestion'>
-					<div className='questionContainer'>
-						<h2> {this.state.poll.question} </h2>
-						<form action={'/api/polls/' + this.state.poll._id + '/answer?_method=PUT'} method='post' className='ui form'>
-							{this.createPoll()}
-							<input type='submit' className='ui button blue mini' value='Vote!' />
-						</form>
-						{this.checkIfPollCreator()}
+				<div className='showPage'>
+					<div className='ui container segment showQuestion'>
+						<div className='questionContainer'>
+							<h2> {this.state.poll.question} </h2>
+							<form action={'/api/polls/' + this.state.poll._id + '/answer?_method=PUT'} method='post' className='ui form'>
+								{this.createPoll()}
+								<input type='submit' className='ui button blue mini' value='Vote!' />
+							</form>
+							{this.checkIfPollCreator()}
+						</div>
 					</div>
-				</div>
-				<div className='ui container segment showResults'>
-					<h2 className='pollResults'> Results </h2>
-					{this.createResults()}
+					<div className='ui container segment showResults'>
+						<h2 className='pollResults'> Results </h2>
+						{this.createResults()}
+					</div>
 				</div>
 			</div>
 		)
