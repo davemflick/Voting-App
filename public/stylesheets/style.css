@@ -36,25 +36,39 @@ html {
 
 .pollsHeader {
 	font-size: 3.1em;
-	color: #FEFEFE;
+	color: #fafafa;
 	text-shadow: 3px 3px 3px #555;
+	background-color: rgba(200,200,200, 0.9);
+	border: 3px solid rgba(0,0,0,0.5);
+	border-radius: 10px; 
 }
 
 .ui.segment.container.singlePoll {
-	background-color: rgba(230,230,230, 0.7);
+	background-color: rgba(200,200,200, 0.9);
 	border: 3px solid rgba(0,0,0,0.5);
 	border-radius: 15px;
 }
 
 .questionTitle{
 	text-align: center;
+	font-size: 2.4em;
+	color: #FEFEFE;
+	text-shadow: 3px 3px 3px #555;
+}
+
+.totalVotes{
+	margin: 0;
+}
+
+.totalVotes span {
+	color: #1892E4;
 }
 
 ul.pollList {
 	padding: 0;
 }
 
-.ui.button.green.vP{
+.ui.button.teal.vP{
 	width: 60%;
 	margin-top: 1em;
 }
@@ -125,7 +139,7 @@ input.hiddenInputData {
 }
 .showPage {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	flex-wrap: wrap;
 	height: 100vh;
 }
@@ -150,12 +164,24 @@ input.hiddenInputData {
 	display: inline-block;
 }
 
+.questionContainer h2{
+	font-size: 2.4em;
+	color: #FEFEFE;
+	text-shadow: 3px 3px 3px #555;
+}
+
+.radio.checkbox {
+	font-size: 1.5em;
+	color: #232323;
+	text-shadow: 2px 2px 2px #fefefe; 
+}
+
 .ui.segment.container.showQuestion {
 	margin-top: 0.5em;
 	width: 80%;
 	margin-bottom: 20px;
 	text-align: center;
-	background-color: rgba(230,230,230,0.9);
+	background-color: rgba(200,200,200,0.9);
 	border: 3px solid rgba(0,0,0,0.5);
 	border-radius: 15px;
 	font-weight: bold;
@@ -165,9 +191,12 @@ input.hiddenInputData {
 	width: 80%;
 	margin-top: 10px;
 	margin-bottom: 100px;
-	background-color: rgba(230,230,230,0.9);
+	background-color: rgba(200,200,200,0.9);
 	border: 3px solid rgba(0,0,0,0.5);
 	border-radius: 15px;
+	font-size: 3.1em;
+	color: #FEFEFE;
+	text-shadow: 3px 3px 3px #555;
 }
 
 .pollResults {
@@ -255,14 +284,21 @@ form.ui.form.logRegForm {
 
 .homePage {
 	margin: 5em auto;
-	display: inline-block;
-	background-color: rgba(230,230,230,0.7);
+	width: 90%;
+	background-color: rgba(180,180,180,0.8);
 	padding: 15px 30px;
-	border: 2px rgba(0,0,0,0.4);
+	border: 3px solid rgba(0,0,0,0.6);
 	border-radius: 10px;
-	box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
+	box-shadow: 3px 3px 3px rgba(0,0,0,0.5);
 	position: relative;
 	z-index: 10000000 !important;
+	padding: 4em;
+}
+
+.homePage h1{
+	font-size: 3.1em;
+	color: #FEFEFE;
+	text-shadow: 3px 3px 3px #555;
 }
 
 .homePageDiv {
@@ -273,6 +309,27 @@ form.ui.form.logRegForm {
 	text-align: center;
 	flex: 1 0 auto;
 	background-color: white;
+}
+
+.homeAbout{
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+.about{
+	width: 30%;
+	border: 3px solid white;
+	background-color: rgba(100,100,100,0.8);
+	border-radius: 13px;
+	margin: 1.0em auto;
+	padding: 1.0em;
+	color: white;
+}
+
+i.icon {
+	font-size: 3em;
+	color: white;
 }
 
 .slideshow {
@@ -360,7 +417,10 @@ form.ui.form.logRegForm {
 
 	.ui.segment.container.showResults {
 		width: 100% !important;
-		margin-top: 0;
+	}
+
+	.about {
+		width: 90%;
 	}
 }
 
@@ -379,8 +439,6 @@ form.ui.form.logRegForm {
 		max-height: 600px;
 	}
 }
-
-
 
 
 

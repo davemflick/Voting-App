@@ -43594,24 +43594,38 @@ var Home = function (_Component) {
 						' Fullstack Voting App '
 					),
 					_react2.default.createElement(
-						'h5',
-						null,
-						'Register a Username'
-					),
-					_react2.default.createElement(
-						'h5',
-						null,
-						'Create and edit your own polls '
-					),
-					_react2.default.createElement(
-						'h5',
-						null,
-						'Vote on other users polls or even your own '
-					),
-					_react2.default.createElement(
-						'h5',
-						null,
-						'Unlimited voting per poll '
+						'div',
+						{ className: 'homeAbout' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'about' },
+							_react2.default.createElement('i', { className: 'unhide icon' }),
+							_react2.default.createElement(
+								'h3',
+								null,
+								' Browse through the list of polls. '
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'about' },
+							_react2.default.createElement('i', { className: 'add user icon' }),
+							_react2.default.createElement(
+								'h3',
+								null,
+								' Create an account and add your own polls to the list. '
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'about' },
+							_react2.default.createElement('i', { className: 'checkmark icon' }),
+							_react2.default.createElement(
+								'h3',
+								null,
+								' View the results and vote as much as you want. '
+							)
+						)
 					)
 				),
 				_react2.default.createElement(
@@ -43743,12 +43757,16 @@ var Polls = function (_Component) {
 						_react2.default.createElement(
 							'h5',
 							{ className: 'totalVotes' },
-							'Total Votes: ' + _this2.findSumOfAnswers(poll),
-							' '
+							'Total Votes: ',
+							_react2.default.createElement(
+								'span',
+								null,
+								_this2.findSumOfAnswers(poll)
+							)
 						),
 						_react2.default.createElement(
 							'a',
-							{ href: '/poll/' + poll._id, className: 'ui button green vP' },
+							{ href: '/poll/' + poll._id, className: 'ui button teal vP' },
 							' View Poll!'
 						),
 						_react2.default.createElement(
@@ -43796,7 +43814,7 @@ var Polls = function (_Component) {
 				_react2.default.createElement(
 					'h1',
 					{ className: 'pollsHeader' },
-					' Posted Polls '
+					' Pick A Poll And Vote! '
 				),
 				_react2.default.createElement(
 					'ul',
@@ -43944,6 +43962,15 @@ var ShowPoll = function (_Component) {
 			}
 		}
 	}, {
+		key: 'findSumOfAnswers',
+		value: function findSumOfAnswers() {
+			var sum = 0;
+			this.state.poll.answers.forEach(function (ans) {
+				return sum += +ans[1];
+			});
+			return sum;
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
@@ -43986,6 +44013,13 @@ var ShowPoll = function (_Component) {
 							'h2',
 							{ className: 'pollResults' },
 							' Results '
+						),
+						_react2.default.createElement(
+							'h3',
+							{ className: 'pollTotal' },
+							' ',
+							this.findSumOfAnswers() + ' Total Votes',
+							' '
 						),
 						this.createResults()
 					)

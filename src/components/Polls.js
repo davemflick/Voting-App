@@ -59,8 +59,8 @@ export default class Polls extends Component {
 			return this.state.polls.map((poll, i)=>
 					<li key={i} className="ui container segment singlePoll">
 						<h2 className='questionTitle'>{poll.question}</h2>
-						<h5 className='totalVotes'>{'Total Votes: ' + this.findSumOfAnswers(poll)} </h5>
-						<a href={'/poll/' + poll._id} className='ui button green vP'> View Poll!</a>
+						<h5 className='totalVotes'>{'Total Votes: '}<span>{this.findSumOfAnswers(poll)}</span></h5>
+						<a href={'/poll/' + poll._id} className='ui button teal vP'> View Poll!</a>
 						<p className='createdBy'>
 							Created by <em>{poll.author.username}</em>
 							<span className='timeCreated'> {this.structureDate(poll.timestamp)} </span>
@@ -79,7 +79,7 @@ export default class Polls extends Component {
 	render(){
 		return(
 			<div className='ui container segment pollsContainer'>
-				<h1 className='pollsHeader'> Posted Polls </h1>
+				<h1 className='pollsHeader'> Pick A Poll And Vote! </h1>
 				<ul className='pollList'>
 					{this.renderPolls()}
 				</ul>

@@ -81,6 +81,12 @@ export default class ShowPoll extends Component {
 		}
 	}
 
+	findSumOfAnswers(){
+		let sum = 0;
+		this.state.poll.answers.forEach(ans=> sum += +ans[1]);
+		return sum;
+	}
+
 	render(){
 		return(
 			<div className='showPageDiv'>
@@ -98,6 +104,7 @@ export default class ShowPoll extends Component {
 					</div>
 					<div className='ui container segment showResults'>
 						<h2 className='pollResults'> Results </h2>
+						<h3 className='pollTotal'> {this.findSumOfAnswers() + ' Total Votes'} </h3>
 						{this.createResults()}
 					</div>
 				</div>
