@@ -92,4 +92,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+app.listen(process.env.PORT || 3000, process.env.IP, function(err){
+  if(err){
+    console.log(err);
+  } else {
+    console.log('Voting App Server is Up.')
+  }
+})
