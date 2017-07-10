@@ -34,7 +34,7 @@ class NavBar extends Component {
 		} else {
 			return (
 				<div className='right menu'>
-				<a className='item' href='#'> {'Logged in as ' + user} </a>
+				<a className='item username' href='#'> {user} </a>
 				<a className='item' href='/user/logout'> Logout </a>
 				</div>
 			)
@@ -44,7 +44,6 @@ class NavBar extends Component {
 	render(){
 		return(
 			<div className='ui menu'>
-				
 				<a className='active item' href='/'> Home </a>
 				<a className='item' href='/polls'> Polls </a>
 				<a className='item' href='/newpoll'> Create Poll </a>

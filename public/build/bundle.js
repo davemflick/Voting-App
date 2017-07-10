@@ -43575,39 +43575,53 @@ var Home = function (_Component) {
 	}
 
 	_createClass(Home, [{
-		key: "render",
+		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
-				"div",
-				null,
+				'div',
+				{ className: 'homePageDiv' },
 				_react2.default.createElement(
-					"h1",
-					null,
-					" Voting App "
+					'div',
+					{ className: 'homePage' },
+					_react2.default.createElement(
+						'h1',
+						null,
+						' Make and Take Polls '
+					),
+					_react2.default.createElement(
+						'p',
+						null,
+						'Register a Username'
+					),
+					_react2.default.createElement(
+						'p',
+						null,
+						'Create and edit your own polls '
+					),
+					_react2.default.createElement(
+						'p',
+						null,
+						'Vote on other users polls or even your own '
+					),
+					_react2.default.createElement(
+						'p',
+						null,
+						'Unlimited voting per poll '
+					),
+					_react2.default.createElement(
+						'a',
+						{ href: '/polls', className: 'ui button green goToPolls' },
+						' View Currently Posted Polls! '
+					)
 				),
 				_react2.default.createElement(
-					"div",
-					{ className: "ui container segment" },
-					_react2.default.createElement(
-						"p",
-						null,
-						"Register a Username "
-					),
-					_react2.default.createElement(
-						"p",
-						null,
-						"Create Custom Polls "
-					),
-					_react2.default.createElement(
-						"p",
-						null,
-						"Vote on public polls made by others "
-					),
-					_react2.default.createElement(
-						"p",
-						null,
-						"View results of all polls"
-					)
+					'ul',
+					{ className: 'slideshow' },
+					_react2.default.createElement('li', null),
+					_react2.default.createElement('li', null),
+					_react2.default.createElement('li', null),
+					_react2.default.createElement('li', null),
+					_react2.default.createElement('li', null)
 				)
 			);
 		}
@@ -43919,24 +43933,33 @@ var ShowPoll = function (_Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				{ className: 'ui container segment showPage' },
+				{ className: 'showPage' },
+				_react2.default.createElement(
+					'h1',
+					{ className: 'showPageHeader' },
+					'Vote and View!'
+				),
 				_react2.default.createElement(
 					'div',
 					{ className: 'ui container segment showQuestion' },
 					_react2.default.createElement(
-						'h2',
-						null,
-						' ',
-						this.state.poll.question,
-						' '
-					),
-					_react2.default.createElement(
-						'form',
-						{ action: '/api/polls/' + this.state.poll._id + '/answer?_method=PUT', method: 'post', className: 'ui form' },
-						this.createPoll(),
-						_react2.default.createElement('input', { type: 'submit', className: 'ui button blue mini', value: 'Vote!' })
-					),
-					this.checkIfPollCreator()
+						'div',
+						{ className: 'questionContainer' },
+						_react2.default.createElement(
+							'h2',
+							null,
+							' ',
+							this.state.poll.question,
+							' '
+						),
+						_react2.default.createElement(
+							'form',
+							{ action: '/api/polls/' + this.state.poll._id + '/answer?_method=PUT', method: 'post', className: 'ui form' },
+							this.createPoll(),
+							_react2.default.createElement('input', { type: 'submit', className: 'ui button blue mini', value: 'Vote!' })
+						),
+						this.checkIfPollCreator()
+					)
 				),
 				_react2.default.createElement(
 					'div',
@@ -59785,9 +59808,9 @@ var NavBar = function (_Component) {
 					{ className: 'right menu' },
 					_react2.default.createElement(
 						'a',
-						{ className: 'item', href: '#' },
+						{ className: 'item username', href: '#' },
 						' ',
-						'Logged in as ' + user,
+						user,
 						' '
 					),
 					_react2.default.createElement(
