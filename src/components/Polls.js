@@ -45,6 +45,12 @@ export default class Polls extends Component {
 		}
 	}
 
+	findSumOfAnswers(poll){
+		let sum = 0;
+		poll.answers.forEach(ans=> sum += +ans[1]);
+		return sum;
+	}
+
 	renderPolls(){
 		if(this.state.initialState){
 			return ( <div> LOADING... </div>)
@@ -53,6 +59,7 @@ export default class Polls extends Component {
 			return this.state.polls.map((poll, i)=>
 					<li key={i} className="ui container segment singlePoll">
 						<h2 className='questionTitle'>{poll.question}</h2>
+						<h5 className='totalVotes'>{'Total Votes: ' + this.findSumOfAnswers(poll)} </h5>
 						<a href={'/poll/' + poll._id} className='ui button green vP'> View Poll!</a>
 						<p className='createdBy'>
 							Created by <em>{poll.author.username}</em>

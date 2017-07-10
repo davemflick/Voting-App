@@ -5,7 +5,7 @@ export default class Login extends Component{
 	render(){
 		return(
 			<div className='loginRegDiv'>
-			<div className='ui container segment logRegCont'>
+			<div className='logRegCont'>
 				<h1> Login </h1>
 				<form action='/user/login' method='post' className='ui form logRegForm'>
 					<div className='field inline'>

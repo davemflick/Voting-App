@@ -38,21 +38,23 @@ class CreatePoll extends Component {
 
 	render(){
 		return(
-			<div className='ui container segment'>
-				<h1> Create New Poll </h1>
-				<form action='/api/polls' method='post' className='ui form'>
-					<div className='field'>
-						<label> Question </label>
-						<input type='text' name='question' placeholder='Question' />
-					</div>
-					{this.createOptions()}
-					<div className='item submitBtn'>
-						<input type='submit' className='ui button green' />
-					</div>
-					<div className='addOption'>
-						<button className='addOpBtn ui button teal' type='button' onClick={this.increaseOpts}> Add Option </button>
-					</div>
-				</form>
+			<div className='createEditDiv'>
+				<div className='ui container segment'>
+					<h1> Create New Poll </h1>
+					<form action='/api/polls' method='post' className='ui form'>
+						<div className='field'>
+							<label> Question </label>
+							<input type='text' name='question' placeholder='Question' />
+						</div>
+						{this.createOptions()}
+						<div className='item submitBtn'>
+							<input type='submit' className='ui button green' />
+						</div>
+						<div className='addOption'>
+							<button className='addOpBtn ui button teal' type='button' onClick={this.increaseOpts}> Add Option </button>
+						</div>
+					</form>
+				</div>
 			</div>
 		)
 	}

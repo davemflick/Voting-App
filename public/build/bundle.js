@@ -43612,11 +43612,6 @@ var Home = function (_Component) {
 						'h5',
 						null,
 						'Unlimited voting per poll '
-					),
-					_react2.default.createElement(
-						'a',
-						{ href: '/polls', className: 'ui button green goToPolls' },
-						' View Currently Posted Polls! '
 					)
 				),
 				_react2.default.createElement(
@@ -43715,6 +43710,15 @@ var Polls = function (_Component) {
 			}
 		}
 	}, {
+		key: 'findSumOfAnswers',
+		value: function findSumOfAnswers(poll) {
+			var sum = 0;
+			poll.answers.forEach(function (ans) {
+				return sum += +ans[1];
+			});
+			return sum;
+		}
+	}, {
 		key: 'renderPolls',
 		value: function renderPolls() {
 			var _this2 = this;
@@ -43735,6 +43739,12 @@ var Polls = function (_Component) {
 							'h2',
 							{ className: 'questionTitle' },
 							poll.question
+						),
+						_react2.default.createElement(
+							'h5',
+							{ className: 'totalVotes' },
+							'Total Votes: ' + _this2.findSumOfAnswers(poll),
+							' '
 						),
 						_react2.default.createElement(
 							'a',
@@ -59224,38 +59234,42 @@ var CreatePoll = function (_Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				{ className: 'ui container segment' },
+				{ className: 'createEditDiv' },
 				_react2.default.createElement(
-					'h1',
-					null,
-					' Create New Poll '
-				),
-				_react2.default.createElement(
-					'form',
-					{ action: '/api/polls', method: 'post', className: 'ui form' },
+					'div',
+					{ className: 'ui container segment' },
 					_react2.default.createElement(
-						'div',
-						{ className: 'field' },
+						'h1',
+						null,
+						' Create New Poll '
+					),
+					_react2.default.createElement(
+						'form',
+						{ action: '/api/polls', method: 'post', className: 'ui form' },
 						_react2.default.createElement(
-							'label',
-							null,
-							' Question '
+							'div',
+							{ className: 'field' },
+							_react2.default.createElement(
+								'label',
+								null,
+								' Question '
+							),
+							_react2.default.createElement('input', { type: 'text', name: 'question', placeholder: 'Question' })
 						),
-						_react2.default.createElement('input', { type: 'text', name: 'question', placeholder: 'Question' })
-					),
-					this.createOptions(),
-					_react2.default.createElement(
-						'div',
-						{ className: 'item submitBtn' },
-						_react2.default.createElement('input', { type: 'submit', className: 'ui button green' })
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'addOption' },
+						this.createOptions(),
 						_react2.default.createElement(
-							'button',
-							{ className: 'addOpBtn ui button teal', type: 'button', onClick: this.increaseOpts },
-							' Add Option '
+							'div',
+							{ className: 'item submitBtn' },
+							_react2.default.createElement('input', { type: 'submit', className: 'ui button green' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'addOption' },
+							_react2.default.createElement(
+								'button',
+								{ className: 'addOpBtn ui button teal', type: 'button', onClick: this.increaseOpts },
+								' Add Option '
+							)
 						)
 					)
 				)
@@ -59458,34 +59472,38 @@ var EditPoll = function (_Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				{ className: 'ui segment container' },
+				{ className: 'createEditDiv' },
 				_react2.default.createElement(
-					'h1',
-					null,
-					' Edit Poll '
-				),
-				_react2.default.createElement(
-					'form',
-					{ action: '/api/polls/' + this.state.currentPoll._id + '?_method=PUT',
-						method: 'post',
-						className: 'ui form' },
-					this.createQuestion(),
-					this.createOptions(),
+					'div',
+					{ className: 'ui segment container' },
 					_react2.default.createElement(
-						'div',
-						{ className: 'item submitBtn' },
-						_react2.default.createElement('input', { type: 'submit', className: 'ui button green' })
+						'h1',
+						null,
+						' Edit Poll '
 					),
 					_react2.default.createElement(
-						'div',
-						{ className: 'addOption' },
+						'form',
+						{ action: '/api/polls/' + this.state.currentPoll._id + '?_method=PUT',
+							method: 'post',
+							className: 'ui form' },
+						this.createQuestion(),
+						this.createOptions(),
 						_react2.default.createElement(
-							'button',
-							{ className: 'addOpBtn ui button teal', type: 'button', onClick: this.increaseOpts },
-							' Add Option '
-						)
-					),
-					this.showRemoveButton()
+							'div',
+							{ className: 'item submitBtn' },
+							_react2.default.createElement('input', { type: 'submit', className: 'ui button green' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'addOption' },
+							_react2.default.createElement(
+								'button',
+								{ className: 'addOpBtn ui button teal', type: 'button', onClick: this.increaseOpts },
+								' Add Option '
+							)
+						),
+						this.showRemoveButton()
+					)
 				)
 			);
 		}
@@ -59538,7 +59556,7 @@ var Register = function (_Component) {
 				{ className: 'loginRegDiv' },
 				_react2.default.createElement(
 					'div',
-					{ className: 'ui container segment logRegCont' },
+					{ className: 'logRegCont' },
 					_react2.default.createElement(
 						'h1',
 						null,
@@ -59555,7 +59573,7 @@ var Register = function (_Component) {
 								null,
 								' Username '
 							),
-							_react2.default.createElement('input', { type: 'text', name: 'username', placeholder: 'Choose Username' })
+							_react2.default.createElement('input', { type: 'text', name: 'username', placeholder: 'Be Creative!' })
 						),
 						_react2.default.createElement(
 							'div',
@@ -59565,7 +59583,7 @@ var Register = function (_Component) {
 								null,
 								' Email '
 							),
-							_react2.default.createElement('input', { type: 'email', name: 'email', placeholder: 'Your email' })
+							_react2.default.createElement('input', { type: 'email', name: 'email', placeholder: '(Not Required)' })
 						),
 						_react2.default.createElement(
 							'div',
@@ -59575,7 +59593,7 @@ var Register = function (_Component) {
 								null,
 								' Password '
 							),
-							_react2.default.createElement('input', { type: 'password', name: 'password', placeholder: 'Password' })
+							_react2.default.createElement('input', { type: 'password', name: 'password', placeholder: 'Super Secret' })
 						),
 						_react2.default.createElement(
 							'div',
@@ -59646,7 +59664,7 @@ var Login = function (_Component) {
 				{ className: 'loginRegDiv' },
 				_react2.default.createElement(
 					'div',
-					{ className: 'ui container segment logRegCont' },
+					{ className: 'logRegCont' },
 					_react2.default.createElement(
 						'h1',
 						null,

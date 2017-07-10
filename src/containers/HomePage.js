@@ -5,6 +5,7 @@ class Home extends Component {
 
 	render(){
 		return(
+
 			<div className='homePageDiv'>
 				<div className="homePage">
 					<h1> Fullstack Voting App </h1>
@@ -12,7 +13,6 @@ class Home extends Component {
 					<h5>Create and edit your own polls </h5>
 					<h5>Vote on other users polls or even your own </h5>
 					<h5>Unlimited voting per poll </h5>
-					<a href='/polls' className='ui button green goToPolls'> View Currently Posted Polls! </a>
 				</div>
 				<ul className='slideshow'>
 					<li></li>
@@ -21,7 +21,6 @@ class Home extends Component {
 					<li></li>
 					<li></li>
 				</ul>
-
 			</div>
 		)
 	}
