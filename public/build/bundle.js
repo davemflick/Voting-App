@@ -40221,7 +40221,8 @@ var Home = function (_Component) {
 
 		_this.state = {
 			polls: [],
-			username: ''
+			username: '',
+			flash: ''
 		};
 		return _this;
 	}
@@ -43625,6 +43626,11 @@ var Home = function (_Component) {
 								' View the results and vote as much as you want. '
 							)
 						)
+					),
+					_react2.default.createElement(
+						'a',
+						{ href: '/polls', className: 'ui button goToPolls' },
+						'Go To Polls! '
 					)
 				),
 				_react2.default.createElement(

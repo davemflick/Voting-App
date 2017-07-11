@@ -23,6 +23,7 @@ class Home extends Component {
 							<h3> View the results and vote as much as you want. </h3>
 						</div>
 					</div>
+					<a href='/polls' className='ui button goToPolls'>Go To Polls! </a>
 				</div>
 				<ul className='slideshow'>
 					<li></li>

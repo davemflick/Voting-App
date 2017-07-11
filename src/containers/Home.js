@@ -16,7 +16,8 @@ class Home extends Component {
 		super(props);
 		this.state = {
 			polls: [],
-			username: ''
+			username: '',
+			flash: ''
 		}
 	}
 
@@ -27,7 +28,7 @@ class Home extends Component {
 				let user = res.data.username
 				this.setState({
 					polls: polls,
-					username: user
+					username: user,
 				})
 			})
 			.catch((err)=>{

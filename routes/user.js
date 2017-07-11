@@ -11,11 +11,9 @@ router.post("/register", (req,res)=>{
 	var newUser = new User({username: username, email: email});
 	User.register(newUser, req.body.password, (err, user)=>{
 		if(err){
-			req.flash('error', 'Something went wrong, try again');
 			res.redirect('/register');
 		} else {
 			passport.authenticate("local")(req, res, ()=>{
-				req.flash('success', 'Thank you for registering ' + user.username)
 				res.redirect("/polls");
 			});
 		}
@@ -31,7 +29,6 @@ router.post("/login",
 
 router.get("/logout", (req, res)=>{
 	req.logout();
-	req.flash('success', 'Log Out Succesfull')
 	res.redirect("/");
 });
 
