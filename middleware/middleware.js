@@ -1,10 +1,12 @@
 var Poll = require("../models/poll");
+var flash = require('connect-flash');
 var middleware = {};
 
 middleware.isLoggedIn = function(req, res, next){
 	if(req.isAuthenticated()){
 		return next();
 	}
+	req.flash('error', 'You must be logged in to do that');
 	res.redirect("/login");
 }
 

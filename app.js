@@ -8,6 +8,7 @@ var methodOverride = require("method-override");
 var passport = require("passport");
 var LocalStrategy = require("passport-local");
 var mongoose = require('mongoose');
+var flash = require('connect-flash');
 
 
 //CONNECT MONGOOSE TO DB
@@ -33,6 +34,9 @@ var app = express();
 //Models
 var Poll = require('./models/poll');
 var User = require('./models/user');
+
+//connect to connect-flash
+app.use(flash());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -66,6 +70,8 @@ passport.deserializeUser(User.deserializeUser());
 //middleware to determine if user is logged in or not, pass to every template
 app.use((req,res,next)=>{
 	res.locals.currentUser = req.user;
+  res.locals.error = req.flash('error');
+  res.locals.success = req.flash('success');
 	next();
 });
 

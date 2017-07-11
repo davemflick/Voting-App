@@ -28044,10 +28044,9 @@ var App = function (_Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				{ className: 'reactBody' },
+				null,
 				_react2.default.createElement(_NavBar2.default, null),
-				_react2.default.createElement(_Home2.default, null),
-				_react2.default.createElement(_Footer2.default, null)
+				_react2.default.createElement(_Home2.default, null)
 			);
 		}
 	}]);

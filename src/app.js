@@ -13,10 +13,9 @@ class App extends Component{
 
 	render(){
 		return (
-			<div className='reactBody'>
+			<div>
 				<NavBar />
 				<Home />
-				<Footer />
 			</div>
 		)
 	}	
