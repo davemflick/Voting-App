@@ -39,6 +39,7 @@ router.get('/editpoll/:id', checkPollCreator, function(req, res, next){
 
 //Get Register
 router.get('/register', function(req, res, next){
+	console.log(req.query)
 	res.render('index')
 });
 //Get Login
